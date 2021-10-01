@@ -1,7 +1,6 @@
 package com.ibtsoft.singularity.core;
 
 import java.io.IOException;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
+import com.ibtsoft.singularity.core.repository.IRepositoryManager;
 
 public class Singularity {
 
@@ -18,15 +18,23 @@ public class Singularity {
 
     private final List<Class<?>> models = new ArrayList<>();
 
-    public Singularity() {
+    private PersistenceManager persistenceManager;
 
+    private final IRepositoryManager repositoriesManager;
+
+    public Singularity(SingularityConfiguration singularityConfiguration) {
+        if(singularityConfiguration.getRepositoryManagerFactory()!=null) {
+            this.repositoriesManager = singularityConfiguration.getRepositoryManagerFactory().makeRepositoryManager();
+        } else {
+            this.repositoriesManager = new RepositoriesManager();
+        }
     }
 
     public void addModelPackage(String classPath) {
         try {
             ClassLoader cl = this.getClass().getClassLoader();
-            LOGGER.debug("Class loader {}", cl );
-            ClassPath path = ClassPath.from (cl);
+            LOGGER.debug("Class loader {}", cl);
+            ClassPath path = ClassPath.from(cl);
             ImmutableSet<ClassInfo> classes = path.getTopLevelClassesRecursive(classPath);
             classes.forEach(classInfo -> {
                 LOGGER.debug("Found class {}", classInfo.getName());
@@ -34,7 +42,12 @@ public class Singularity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public <T> Repository<T> createRepository(Class<T> modelClass) {
+        return repositoriesManager.createRepository(modelClass);
+    }
 
-
+    public IRepositoryManager getRepositoriesManager() {
+        return repositoriesManager;
     }
 }

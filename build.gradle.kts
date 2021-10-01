@@ -21,9 +21,15 @@ allprojects {
     apply(plugin = "com.github.spotbugs")
     dependencies {
         "implementation"("org.slf4j:slf4j-api:1.7.30")
+        "implementation"("org.slf4j:slf4j-log4j12:1.7.30")
+        "implementation"("org.apache.logging.log4j:log4j:2.14.0")
         "testImplementation"("org.assertj:assertj-core:3.11.1")
     }
     group = "com.ibtsoft"
+
+    tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+        ignoreFailures = true
+    }
 }
 
 subprojects {
