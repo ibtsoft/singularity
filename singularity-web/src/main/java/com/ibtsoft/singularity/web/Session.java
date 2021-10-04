@@ -20,7 +20,6 @@ public abstract class Session implements MessageSender, AuthenticationResultList
     private String username;
     private UserId userId;
 
-
     public Session(SecurityManager securityManager, ActionsRepository actionsRepository) {
         AuthenticationModule authenticationModule = new AuthenticationModule(this,securityManager);
         authenticationModule.addAuthenticationResultListener(this);
@@ -31,6 +30,7 @@ public abstract class Session implements MessageSender, AuthenticationResultList
         modules.put(repositoryModule.getName(), repositoryModule);
 
         ActionModule actionModule = new ActionModule(this, actionsRepository);
+        authenticationModule.addAuthenticationResultListener(actionModule);
         modules.put(actionModule.getName(), actionModule);
     }
 

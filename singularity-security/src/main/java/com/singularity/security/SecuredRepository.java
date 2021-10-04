@@ -31,6 +31,7 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
 
     @Override
     public EntityValue<T> findById(UUID id) {
+        Map<UUID, AclRule> aclRules = aclRulesRepository.findByUserIdAndRepository(userId, repository.getName());
         return repository.findById(id);
     }
 

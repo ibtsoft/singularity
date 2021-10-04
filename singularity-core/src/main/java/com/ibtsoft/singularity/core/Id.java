@@ -35,4 +35,12 @@ public class Id {
     public int hashCode() {
         return Objects.hash(uuid);
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public static Id forString(String id) {
+        return new Id(UUID.fromString(id));
+    }
 }

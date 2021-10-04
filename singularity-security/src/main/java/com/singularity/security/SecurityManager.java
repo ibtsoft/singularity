@@ -56,6 +56,10 @@ public class SecurityManager implements IRepositoryManager {
         }
     }
 
+    public <T> SecuredRepository<T> getRepository(Class<T> repositoryClass, UserId username) {
+        return (SecuredRepository<T>) getRepository(repositoryClass.getSimpleName(), username);
+    }
+
     public SecuredRepository<?> getRepository(String repository, UserId username) {
         return securedRepositories.computeIfAbsent(new RepositoryUsername(repository, username),
             repositoryUsername -> new SecuredRepository<>(username, repositoriesManager.getRepository(repositoryUsername.getRepository()), aclRulesRepository));

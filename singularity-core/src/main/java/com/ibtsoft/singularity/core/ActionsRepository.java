@@ -13,15 +13,6 @@ public class ActionsRepository {
 
     private Map<String, ActionMethod> actions = new ConcurrentHashMap<>();
 
-    private static final ActionsRepository instance = new ActionsRepository();
-
-    private ActionsRepository() {
-    }
-
-    public static ActionsRepository actionsRepository() {
-        return instance;
-    }
-
     public void addActions(Object object) {
         for (Method method : object.getClass().getMethods()) {
             if (method.isAnnotationPresent(Action.class)) {
@@ -35,28 +26,25 @@ public class ActionsRepository {
         }
     }
 
-    public void executeAction(String actionName, Map<String, Object> params) {
+    public Object executeAction(ActionExecutionContext context, String actionName, Map<String, Object> params) {
         ActionMethod actionMethod = actions.get(actionName);
         if (actionMethod == null) {
             throw new RuntimeException(format("Cannot find action '%s'", actionName));
         }
         List<Object> args = new ArrayList<>();
-/*        for (Parameter parameter : actionMethod.getMethod().getParameters()) {
-            if (parameter.isNamePresent()) {
-                Object param = params.get(parameter.getName());
-                if (param == null) {
-                    throw new RuntimeException(format("Unknown parameter name '%s' in action '%s'", parameter.getName(), actionName));
-                }
-                args.add(params.get(parameter.getName()));
+        Object[] paramsArray = params.values().toArray();
+        int i = 0;
+        for (Parameter parameter : actionMethod.getMethod().getParameters()) {
+            if (ActionExecutionContext.class.isAssignableFrom(parameter.getType())) {
+                args.add(context);
             } else {
-                args.add(params.entrySet().)
+                args.add(paramsArray[i]);
+                i++;
             }
-
         }
 
- */
         try {
-            actionMethod.getMethod().invoke(actionMethod.getObject(), params.values().toArray());
+            return actionMethod.getMethod().invoke(actionMethod.getObject(), args.toArray());
         } catch (Exception e) {
             throw new RuntimeException(format("Exception occurred when called action '%s'", actionName), e);
         }

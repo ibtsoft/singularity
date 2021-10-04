@@ -2,6 +2,7 @@ package com.ibtsoft.singularity.core;
 
 import javassist.util.proxy.MethodFilter;
 import javassist.util.proxy.ProxyFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,13 +26,37 @@ public class Repository<T> implements IRepository<T> {
 
     protected final Map<UUID, EntityValue<T>> items;
 
+    protected final Map<UUID, EntityValue<T>> deletedItems;
+
     private final List<RepositoryCrudListener> crudListeners = new CopyOnWriteArrayList<>();
+
+    public Repository(Class<T> repositoryClass) {
+        this(repositoryClass, null);
+    }
+
+    public Repository(Class<T> repositoryClass, Persistence<T> persistence) {
+        this.repositoryClass = repositoryClass;
+        this.persistence = persistence;
+
+        items = new ConcurrentHashMap<>();
+        deletedItems = new ConcurrentHashMap<>();
+
+        proxyFactory = new ProxyFactory();
+
+        proxyFactory.setFilter(new MethodFilter() {
+            public boolean isHandled(Method m) {
+                // ignore finalize()
+                return !m.getName().equals("finalize");
+            }
+        });
+    }
 
     public void init() {
         if (persistence != null) {
             persistence.loadAll().forEach(entity -> items.put(entity.getId(), entity));
         }
     }
+
     @Override
     public EntityValue<T> findById(UUID id) {
         return items.get(id);
@@ -46,15 +71,15 @@ public class Repository<T> implements IRepository<T> {
         items.put(item.getId(), item);
     }
 
-/*    protected void add(EntityValue<T> item) {
-        if (items.containsKey(item.getId())) {
-            throw new RuntimeException("Entity with this key already exists");
+    /*    protected void add(EntityValue<T> item) {
+            if (items.containsKey(item.getId())) {
+                throw new RuntimeException("Entity with this key already exists");
+            }
+            items.put(item.getId(), item);
+
+
         }
-        items.put(item.getId(), item);
-
-
-    }
-*/
+    */
     @Override
     public EntityValue<T> save(T item) {
         UUID id = UUID.randomUUID();
@@ -82,30 +107,11 @@ public class Repository<T> implements IRepository<T> {
 
     @Override
     public void delete(EntityValue<T> entity) {
-        items.remove(entity.getId());
+        deletedItems.put(entity.getId(), items.remove(entity.getId()));
         if (persistence != null) {
             persistence.remove(entity.getId());
         }
         LOGGER.debug("Deleted entity: {}", entity);
-    }
-
-    public Repository(Class<T> repositoryClass) {
-        this(repositoryClass, null);
-    }
-
-    public Repository(Class<T> repositoryClass, Persistence<T> persistence) {
-        this.repositoryClass = repositoryClass;
-        this.persistence = persistence;
-
-        items = new ConcurrentHashMap<>();
-        proxyFactory = new ProxyFactory();
-
-        proxyFactory.setFilter(new MethodFilter() {
-            public boolean isHandled(Method m) {
-                // ignore finalize()
-                return !m.getName().equals("finalize");
-            }
-        });
     }
 
     public Class<T> getRepositoryClass() {

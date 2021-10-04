@@ -21,13 +21,6 @@ public class WebSocketJettyServer {
     private Server server;
 
     public void start(SecurityManager securityManager, ActionsRepository actionsRepository) throws Exception {
-
-        int maxThreads = 100;
-        int minThreads = 10;
-        int idleTimeout = 120;
-
-        QueuedThreadPool threadPool = new QueuedThreadPool(maxThreads, minThreads, idleTimeout);
-
         server = new Server(8080);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

@@ -1,5 +1,8 @@
 package com.ibtsoft.singularity.web.socketio;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ibtsoft.singularity.core.ActionsRepository;
@@ -12,6 +15,8 @@ import io.socket.socketio.server.SocketIoSocket;
 
 public class SocketSession extends Session {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SocketSession.class);
+
     private final SocketIoSocket socket;
 
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Class.class, ClassTypeAdapter.get()).create();
@@ -22,6 +27,7 @@ public class SocketSession extends Session {
 
         modules.forEach((name, module) -> {
             socket.on(name, args -> {
+                LOGGER.info("Received message for module {}: {}", name, args[0]);
                 module.processMessage(gson.fromJson((String) args[0], Message.class));
             });
         });
