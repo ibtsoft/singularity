@@ -1,17 +1,11 @@
 package com.ibtsoft.singularity.web.modules.repository.messages;
 
-import com.ibtsoft.singularity.web.messages.Message;
+import java.util.List;
 
-public class RepositoryCrudMessage extends Message {
+public class RepositoryCrudMessage {
     private String repository;
 
-    public RepositoryCrudMessage() {
-    }
-
-    public RepositoryCrudMessage(String id, String type, Object data, String repository) {
-        super(id, "REPOSITORY", type, data);
-        this.repository = repository;
-    }
+    private List<Object> entities;
 
     public String getRepository() {
         return repository;
@@ -21,7 +15,11 @@ public class RepositoryCrudMessage extends Message {
         this.repository = repository;
     }
 
-    public enum RepositoryCrudMessageActionEnum {
-        SUBSCRIBE, CREATE, UPDATE, DELETE
+    public List<Object> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<Object> entities) {
+        this.entities = entities;
     }
 }

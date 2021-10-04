@@ -1,5 +1,6 @@
 package com.ibtsoft.singularity.web.modules.authentication.messages;
 
+import com.ibtsoft.singularity.web.messages.Message;
 import com.ibtsoft.singularity.web.messages.MessageReply;
 import com.ibtsoft.singularity.web.modules.authentication.AuthenticationModule;
 import com.singularity.security.LoginResult;
@@ -10,8 +11,8 @@ import static java.lang.String.format;
 
 public class LoginResultMessage extends MessageReply {
 
-    public LoginResultMessage(String replyToMessageId, LoginResult loginResult) {
-        super(replyToMessageId,
+    public LoginResultMessage(Message message, LoginResult loginResult) {
+        super(message.getMeta(),
             AuthenticationModule.AUTHENTICATION_MODULE_NAME,
             "LOGIN",
             loginResult.isSuccess() ? SUCCESS : FAILURE,

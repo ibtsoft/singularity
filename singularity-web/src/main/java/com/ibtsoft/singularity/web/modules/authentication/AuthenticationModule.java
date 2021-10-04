@@ -40,7 +40,7 @@ public class AuthenticationModule extends Module {
 
         switch (message.getType()) {
             case "LOGIN":
-                LoginMessage loginMessage = gson.fromJson(gson.toJsonTree(message.getData()).getAsJsonObject(), LoginMessage.class);
+                LoginMessage loginMessage = gson.fromJson(gson.toJsonTree(message.getPayload()).getAsJsonObject(), LoginMessage.class);
                 LoginResult loginResult = securityManager.login(loginMessage.getUsername(), loginMessage.getPassword());
                 if (loginResult.isSuccess()) {
                     String username = loginResult.getUsername();
@@ -48,7 +48,7 @@ public class AuthenticationModule extends Module {
 
                     fireOnAuthenticationSuccess(username, userId);
                 }
-                sendMessage(new LoginResultMessage(message.getId(), loginResult));
+                sendMessage(new LoginResultMessage(message, loginResult));
                 break;
             case "LOGOFF":
                 break;

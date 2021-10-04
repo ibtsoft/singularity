@@ -18,4 +18,12 @@ public class EntityValue<T> extends Entity<T>{
     public EntityRef<T> getRef(Repository<T> repository) {
         return new EntityRef<>(getId(), getEntityClass(), repository);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("EntityValue{");
+        sb.append("value=").append(value);
+        sb.append('}');
+        return sb.toString();
+    }
 }

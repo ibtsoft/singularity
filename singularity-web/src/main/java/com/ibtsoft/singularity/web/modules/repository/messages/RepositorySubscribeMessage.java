@@ -1,14 +1,16 @@
 package com.ibtsoft.singularity.web.modules.repository.messages;
 
+import java.util.List;
+
 public class RepositorySubscribeMessage {
 
-    private String repository;
+    private List<String> repositories;
 
-    public String getRepository() {
-        return repository;
+    public List<String> getRepositories() {
+        return repositories;
     }
 
-    public void setRepository(String repository) {
-        this.repository = repository;
+    public void setRepositories(List<String> repositories) {
+        this.repositories = repositories;
     }
 }

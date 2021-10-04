@@ -8,7 +8,6 @@ import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.modules.Module;
 import com.ibtsoft.singularity.web.modules.action.messages.ActionMessage;
 import com.ibtsoft.singularity.web.modules.action.messages.ActionResultMessage;
-import com.ibtsoft.singularity.web.modules.authentication.AuthenticationModule;
 import com.ibtsoft.singularity.web.modules.authentication.AuthenticationResultListener;
 import com.singularity.security.UserAwareActionExecutionContext;
 import com.singularity.security.UserId;
@@ -38,17 +37,17 @@ public class ActionModule extends Module implements AuthenticationResultListener
 
     @Override
     public void processMessage(Message message) {
-        ActionMessage actionMessage = gson.fromJson(gson.toJsonTree(message.getData()).getAsJsonObject(), ActionMessage.class);
+        ActionMessage actionMessage = gson.fromJson(gson.toJsonTree(message.getPayload()).getAsJsonObject(), ActionMessage.class);
         ActionResultMessage resultMessage;
         switch (message.getType()) {
             case "EXECUTE":
             default:
                 try {
                     actionsRepository.executeAction(new UserAwareActionExecutionContext(userId), actionMessage.getName(), actionMessage.getParams());
-                    resultMessage = new ActionResultMessage(message.getId(), SUCCESS, "");
+                    resultMessage = new ActionResultMessage(message, SUCCESS, "");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    resultMessage = new ActionResultMessage(message.getId(), FAILURE, "");
+                    resultMessage = new ActionResultMessage(message, FAILURE, "");
                 }
 
         }
