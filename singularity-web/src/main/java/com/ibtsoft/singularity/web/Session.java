@@ -20,16 +20,20 @@ public abstract class Session implements MessageSender, AuthenticationResultList
     private String username;
     private UserId userId;
 
+    private final AuthenticationModule authenticationModule;
+    private final RepositoryModule repositoryModule;
+    private final ActionModule actionModule;
+
     public Session(SecurityManager securityManager, ActionsRepository actionsRepository) {
-        AuthenticationModule authenticationModule = new AuthenticationModule(this,securityManager);
+        authenticationModule = new AuthenticationModule(this,securityManager);
         authenticationModule.addAuthenticationResultListener(this);
         modules.put(authenticationModule.getName(), authenticationModule);
 
-        RepositoryModule repositoryModule = new RepositoryModule(this, securityManager);
+        repositoryModule = new RepositoryModule(this, securityManager);
         authenticationModule.addAuthenticationResultListener(repositoryModule);
         modules.put(repositoryModule.getName(), repositoryModule);
 
-        ActionModule actionModule = new ActionModule(this, actionsRepository);
+        actionModule = new ActionModule(this, actionsRepository);
         authenticationModule.addAuthenticationResultListener(actionModule);
         modules.put(actionModule.getName(), actionModule);
     }
@@ -39,4 +43,10 @@ public abstract class Session implements MessageSender, AuthenticationResultList
         this.username = username;
         this.userId = userId;
     }
+
+    public void close() {
+        authenticationModule.removeAuthenticationResultListener(this);
+        authenticationModule.removeAuthenticationResultListener(repositoryModule);
+        authenticationModule.removeAuthenticationResultListener(actionModule);
+    };
 }

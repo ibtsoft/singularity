@@ -11,6 +11,7 @@ import com.ibtsoft.singularity.web.modules.authentication.messages.LoginMessage;
 import com.ibtsoft.singularity.web.modules.authentication.messages.LoginResultMessage;
 import com.ibtsoft.singularity.web.modules.Module;
 import com.ibtsoft.singularity.web.modules.action.ClassTypeAdapter;
+import com.ibtsoft.singularity.web.modules.authentication.messages.LoginTokenMessage;
 import com.singularity.security.LoginResult;
 import com.singularity.security.SecurityManager;
 import com.singularity.security.UserId;
@@ -50,13 +51,24 @@ public class AuthenticationModule extends Module {
                 }
                 sendMessage(new LoginResultMessage(message, loginResult));
                 break;
+            case "LOGIN_WITH_TOKEN":
+                LoginTokenMessage loginTokenMessage = gson.fromJson(gson.toJsonTree(message.getPayload()).getAsJsonObject(), LoginTokenMessage.class);
+                loginResult = securityManager.login(loginTokenMessage.getToken());
+                if (loginResult.isSuccess()) {
+                    String username = loginResult.getUsername();
+                    UserId userId = loginResult.getUserId();
+
+                    fireOnAuthenticationSuccess(username, userId);
+                }
+                sendMessage(new LoginResultMessage(message, loginResult));
+                break;
             case "LOGOFF":
                 break;
         }
 
     }
 
-    public void fireOnAuthenticationSuccess(String username, UserId userId ) {
+    public void fireOnAuthenticationSuccess(String username, UserId userId) {
         authenticationResultListeners.forEach(authenticationResultListener -> authenticationResultListener.onAuthenticationSuccess(username, userId));
     }
 

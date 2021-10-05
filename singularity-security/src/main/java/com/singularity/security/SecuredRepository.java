@@ -75,6 +75,11 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
+    public void deleteById(UUID id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     public EntityValue<T> save(T item) {
         EntityValue<T> entityValue = repository.save(item);
         aclRulesRepository.save(new AclRule(userId, entityValue.getRef(repository), true, true, true));

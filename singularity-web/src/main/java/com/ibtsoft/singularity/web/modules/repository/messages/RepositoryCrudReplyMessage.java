@@ -11,6 +11,6 @@ public class RepositoryCrudReplyMessage extends Message {
     }
 
     public enum RepositoryCrudMessageActionEnum {
-        SUBSCRIBE, CREATE, UPDATE, DELETE
+        SUBSCRIBE, UNSUBSCRIBE, CREATE, UPDATE, DELETE
     }
 }

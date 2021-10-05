@@ -106,12 +106,17 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void delete(EntityValue<T> entity) {
-        deletedItems.put(entity.getId(), items.remove(entity.getId()));
+    public void deleteById(UUID id) {
+        deletedItems.put(id, items.remove(id));
         if (persistence != null) {
-            persistence.remove(entity.getId());
+            persistence.remove(id);
         }
-        LOGGER.debug("Deleted entity: {}", entity);
+        LOGGER.debug("Deleted entity, id: {}", id);
+    }
+
+    @Override
+    public void delete(EntityValue<T> entity) {
+        deleteById(entity.getId());
     }
 
     public Class<T> getRepositoryClass() {

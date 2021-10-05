@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ibtsoft.singularity.core.ActionsRepository;
 import com.singularity.security.SecurityManager;
 
@@ -22,9 +25,11 @@ import io.socket.socketio.server.SocketIoSocket;
 @WebServlet("/socket.io/*")
 public class SocketIoServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SocketIoServlet.class);
+
     private EngineIoServer mEngineIoServer;
 
-    private final List<SocketSession> sessions = new CopyOnWriteArrayList<>();
+    private final List<SocketIoSession> sessions = new CopyOnWriteArrayList<>();
 
     @Override
     public void init() throws ServletException {
@@ -43,20 +48,18 @@ public class SocketIoServlet extends HttpServlet {
         namespace.on("connection", args -> {
             SocketIoSocket socket = (SocketIoSocket) args[0];
 
-            /*JSONObject jsonObject = (JSONObject) socket.getConnectData();
-            if (jsonObject.has("username")) {
-                String username = jsonObject.getString("username");
-                String password = jsonObject.getString("password");
-                LoginResult loginResult = securityManager.login(username, password);
-                if (loginResult.isSuccess()) {
-                    sessions.add(new SocketSession(socket, securityManager, actionsRepository, loginResult));
-                } else               {
-                    socket.send("connection_error", "Error");
-                }
-            } else {*/
-            sessions.add(new SocketSession(socket, securityManager, actionsRepository));
-            /*}
-             */
+            LOGGER.debug("Client connected, id={}", socket.getId());
+
+            SocketIoSession socketSession = new SocketIoSession(socket, securityManager, actionsRepository);
+
+            sessions.add(socketSession);
+
+            socket.on("disconnect", args1 -> {
+                socketSession.close();
+                sessions.remove(socketSession);
+                LOGGER.debug("Client disconnected, id={}", socket.getId());
+            });
+
         });
 
     }

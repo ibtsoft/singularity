@@ -13,6 +13,8 @@ public interface IRepository<T> {
 
     EntityValue<T> update(EntityValue<T> entity);
 
+    void deleteById(UUID id);
+
     void delete(EntityValue<T> entity);
 
     Class<T> getRepositoryClass();

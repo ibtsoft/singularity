@@ -1,15 +1,20 @@
 package com.singularity.security;
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.ibtsoft.singularity.core.Entity;
 import com.ibtsoft.singularity.core.EntityValue;
 import com.ibtsoft.singularity.core.IRepository;
 import com.ibtsoft.singularity.core.RepositoriesManager;
 import com.ibtsoft.singularity.core.Repository;
 import com.ibtsoft.singularity.core.repository.IRepositoryManager;
 import com.ibtsoft.singularity.core.repository.RepositoryDescriptor;
+import com.singularity.security.token.Token;
+import com.singularity.security.token.TokenRepository;
 
 import static java.lang.String.format;
 
@@ -21,12 +26,16 @@ public class SecurityManager implements IRepositoryManager {
     private final AclRulesRepository aclRulesRepository;
     private final RepositoriesManager repositoriesManager;
 
+    private final TokenRepository tokenRepository;
+
     private final Map<RepositoryUsername, SecuredRepository<?>> securedRepositories = new ConcurrentHashMap<>();
 
     public SecurityManager() {
         this.userRepository = new UserRepository(null);
         this.aclRulesRepository = new AclRulesRepository(null);
         this.repositoriesManager = new RepositoriesManager();
+
+        this.tokenRepository = new TokenRepository();
     }
 
     public void init() {
@@ -43,11 +52,22 @@ public class SecurityManager implements IRepositoryManager {
         return userEntity;
     }
 
+    public LoginResult login(String token) {
+        Optional<EntityValue<Token>> tokenEntityValue = tokenRepository.findByTokenValue(token);
+        if (tokenEntityValue.isPresent() && tokenEntityValue.get().getValue().getExpiration().isAfter(LocalDateTime.now())) {
+            Entity<User> user = tokenEntityValue.get().getValue().getUser();
+            return LoginResult.success(user.getValue().getUsername(), UserId.forUUID(user.getId()), tokenRepository.generateToken(user,
+                tokenEntityValue.get().getId()));
+        } else {
+            return LoginResult.wrongToken();
+        }
+    }
+
     public LoginResult login(String username, String password) {
         EntityValue<User> user = getUserByUsername(username);
         if (user != null) {
             if (user.getValue().getPassword().equals(password)) {
-                return LoginResult.success(username, UserId.forUUID(user.getId()));
+                return LoginResult.success(username, UserId.forUUID(user.getId()), tokenRepository.generateToken(user));
             } else {
                 return LoginResult.wrongPassword(username);
             }

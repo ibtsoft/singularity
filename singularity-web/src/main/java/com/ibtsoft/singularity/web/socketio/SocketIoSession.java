@@ -16,15 +16,17 @@ import com.singularity.security.SecurityManager;
 
 import io.socket.socketio.server.SocketIoSocket;
 
-public class SocketSession extends Session {
+import static java.lang.String.format;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SocketSession.class);
+public class SocketIoSession extends Session {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SocketIoSession.class);
 
     private final SocketIoSocket socket;
 
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Class.class, ClassTypeAdapter.get()).create();
 
-    public SocketSession(SocketIoSocket socket, SecurityManager securityManager, ActionsRepository actionsRepository) {
+    public SocketIoSession(SocketIoSocket socket, SecurityManager securityManager, ActionsRepository actionsRepository) {
         super(securityManager, actionsRepository);
         this.socket = socket;
 
@@ -33,8 +35,8 @@ public class SocketSession extends Session {
                 LOGGER.info("Received message for module {}: {}", name, args[0]);
                 Message message;
                 try {
-                     message = gson.fromJson((String) args[0], Message.class);
-                } catch(JsonSyntaxException e) {
+                    message = gson.fromJson((String) args[0], Message.class);
+                } catch (JsonSyntaxException e) {
                     LOGGER.error("Failed to parse message ", e);
                     sendMessage(new MessageReply(null, name, null, ActionResultStatusEnum.FAILURE, "Cannot parse the message"));
                     return;
@@ -47,11 +49,19 @@ public class SocketSession extends Session {
                 }
             });
         });
+
+        socket.on("error", args -> {
+            LOGGER.error("Session error: {}", args[0]);
+        });
     }
 
     @Override
     public void sendMessage(Message message) {
-        LOGGER.info("Sending message: {}", message);
-        socket.send(message.getModule(), gson.toJson(message));
+        try {
+            socket.send(message.getModule(), gson.toJson(message));
+            LOGGER.info("Sent message: {}", message);
+        } catch (Exception e) {
+            LOGGER.error(format("Failed to send message: %s", message), e);
+        }
     }
 }
