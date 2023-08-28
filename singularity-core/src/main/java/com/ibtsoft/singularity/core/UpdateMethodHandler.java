@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ibtsoft.singularity.core.repository.Repository;
+
 import javassist.util.proxy.MethodHandler;
 
 public class UpdateMethodHandler implements MethodHandler {
@@ -22,7 +24,7 @@ public class UpdateMethodHandler implements MethodHandler {
 
     @Override
     public Object invoke(Object self, Method m, Method proceed, Object[] args) throws Throwable {
-        LOGGER.debug("Class: {}, Id: {}, Method name: {}, Arguments: {}" , self.getClass().getSimpleName(), id, m.getName(), args);
+        LOGGER.debug("Class: {}, Id: {}, Method name: {}, Arguments: {}", self.getClass().getSimpleName(), id, m.getName(), args);
         return proceed.invoke(self, args);  // execute the original method.
     }
 }

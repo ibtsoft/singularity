@@ -1,0 +1,11 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+*.java   text diff=java
+*.sql    text
+*.html   text diff=html
+*.css    text
+*.js     text
+
+*.sh            text eol=lf # Don't do auto-detection. Treat as text. Checkout and add with eol=lf
+*.bat           text eol=crlf # Treat as text. Checkout and add with eol=crlf

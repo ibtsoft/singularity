@@ -1,11 +1,11 @@
 package com.ibtsoft.singularity.web.websocket;
 
-import com.google.gson.Gson;
-import com.ibtsoft.singularity.web.messages.Message;
-
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
+
+import com.google.gson.Gson;
+import com.ibtsoft.singularity.web.messages.Message;
 
 public class MessageDecoder implements Decoder.Text<Message> {
 

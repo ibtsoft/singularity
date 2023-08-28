@@ -16,12 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ibtsoft.singularity.core.ActionsRepository;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
 import com.ibtsoft.singularity.web.messages.Message;
 import com.ibtsoft.singularity.web.modules.Module;
 import com.ibtsoft.singularity.web.modules.action.ClassTypeAdapter;
 import com.singularity.security.SecurityManager;
-import com.singularity.security.UserId;
 
 @ServerEndpoint(value = "/main", decoders = { MessageDecoder.class }, encoders = { MessageEncoder.class })
 public class MainEndpoint extends com.ibtsoft.singularity.web.Session {

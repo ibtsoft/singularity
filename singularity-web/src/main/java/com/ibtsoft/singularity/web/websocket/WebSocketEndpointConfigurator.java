@@ -1,10 +1,9 @@
 package com.ibtsoft.singularity.web.websocket;
 
-import com.ibtsoft.singularity.core.ActionsRepository;
-import com.ibtsoft.singularity.web.websocket.MainEndpoint;
-import com.singularity.security.SecurityManager;
-
 import javax.websocket.server.ServerEndpointConfig;
+
+import com.ibtsoft.singularity.core.action.ActionsRepository;
+import com.singularity.security.SecurityManager;
 
 public class WebSocketEndpointConfigurator extends ServerEndpointConfig.Configurator {
 

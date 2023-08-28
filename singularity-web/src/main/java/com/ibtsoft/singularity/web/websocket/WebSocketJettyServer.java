@@ -1,20 +1,19 @@
 package com.ibtsoft.singularity.web.websocket;
 
-import com.ibtsoft.singularity.core.ActionsRepository;
-import com.singularity.security.SecurityManager;
+import java.net.URL;
+import java.util.Objects;
+
+import javax.websocket.server.ServerContainer;
+import javax.websocket.server.ServerEndpointConfig;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 
-import javax.websocket.server.ServerContainer;
-import javax.websocket.server.ServerEndpointConfig;
-
-import java.net.URL;
-import java.util.Objects;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
+import com.singularity.security.SecurityManager;
 
 public class WebSocketJettyServer {
 

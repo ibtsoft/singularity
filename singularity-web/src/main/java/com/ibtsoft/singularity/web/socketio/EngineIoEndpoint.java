@@ -44,7 +44,7 @@ public final class EngineIoEndpoint extends Endpoint {
         mSession.addMessageHandler(new MessageHandler.Whole<byte[]>() {
             @Override
             public void onMessage(byte[] message) {
-                mEngineIoWebSocket.emit("message", (Object)message);
+                mEngineIoWebSocket.emit("message", (Object) message);
             }
         });
 
@@ -99,6 +99,7 @@ public final class EngineIoEndpoint extends Endpoint {
             try {
                 mSession.close();
             } catch (IOException ignore) {
+                throw new RuntimeException(ignore);
             }
         }
     }

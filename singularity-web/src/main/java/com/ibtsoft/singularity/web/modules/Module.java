@@ -1,7 +1,7 @@
 package com.ibtsoft.singularity.web.modules;
 
-import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.messages.Message;
+import com.ibtsoft.singularity.web.messages.MessageSender;
 
 public abstract class Module {
 

@@ -2,7 +2,7 @@ package com.ibtsoft.singularity.web.modules.action;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ibtsoft.singularity.core.ActionsRepository;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
 import com.ibtsoft.singularity.web.messages.Message;
 import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.modules.Module;
@@ -49,7 +49,6 @@ public class ActionModule extends Module implements AuthenticationResultListener
                     e.printStackTrace();
                     resultMessage = new ActionResultMessage(message, FAILURE, "");
                 }
-
         }
         sendMessage(resultMessage);
     }

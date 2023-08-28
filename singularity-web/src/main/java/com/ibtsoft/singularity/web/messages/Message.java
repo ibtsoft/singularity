@@ -55,6 +55,17 @@ public class Message {
         this.payload = payload;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Message{");
+        sb.append("module='").append(module).append('\'');
+        sb.append(", type='").append(type).append('\'');
+        sb.append(", meta=").append(meta);
+        sb.append(", payload=").append(payload);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public static class Meta {
 
         private String referenceId;
@@ -78,16 +89,5 @@ public class Message {
             sb.append('}');
             return sb.toString();
         }
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Message{");
-        sb.append("module='").append(module).append('\'');
-        sb.append(", type='").append(type).append('\'');
-        sb.append(", meta=").append(meta);
-        sb.append(", payload=").append(payload);
-        sb.append('}');
-        return sb.toString();
     }
 }

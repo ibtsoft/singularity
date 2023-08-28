@@ -19,7 +19,7 @@ public class DynamicInvocationHandler<T> implements InvocationHandler {
     public DynamicInvocationHandler(T target) {
         this.target = target;
 
-        for(Method method: target.getClass().getDeclaredMethods()) {
+        for (Method method : target.getClass().getDeclaredMethods()) {
             this.methods.put(method.getName(), method);
         }
     }

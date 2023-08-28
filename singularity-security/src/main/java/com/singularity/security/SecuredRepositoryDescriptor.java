@@ -6,8 +6,8 @@ public class SecuredRepositoryDescriptor extends RepositoryDescriptor {
 
     private final UserId userId;
 
-    public static SecuredRepositoryDescriptor forNameAndUserId(String repositoryName, UserId userId) {
-        return new SecuredRepositoryDescriptor(repositoryName, userId);
+    public static SecuredRepositoryDescriptor forClassAndUserId(Class<?> repositoryEntityClass, UserId userId) {
+        return new SecuredRepositoryDescriptor(repositoryEntityClass.getSimpleName(), userId);
     }
 
     private SecuredRepositoryDescriptor(String repositoryName, UserId userId) {

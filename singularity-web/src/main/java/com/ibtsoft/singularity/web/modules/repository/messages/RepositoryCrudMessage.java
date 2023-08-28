@@ -3,6 +3,7 @@ package com.ibtsoft.singularity.web.modules.repository.messages;
 import java.util.List;
 
 public class RepositoryCrudMessage {
+
     private String repository;
 
     private List<Object> entities;

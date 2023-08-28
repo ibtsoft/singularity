@@ -10,7 +10,7 @@ import com.google.gson.stream.JsonWriter;
 public final class ClassTypeAdapter extends TypeAdapter<Class<?>> {
 
     // The type adapter does not hold state, so it can be easily made singleton (+ making the constructor private)
-    private static final TypeAdapter<Class<?>> instance = new ClassTypeAdapter()
+    private static final TypeAdapter<Class<?>> INSTANCE = new ClassTypeAdapter()
         // This is a convenient method that can do trivial null-checks in write(...)/read(...) itself
         .nullSafe();
 
@@ -18,7 +18,7 @@ public final class ClassTypeAdapter extends TypeAdapter<Class<?>> {
     }
 
     public static TypeAdapter<Class<?>> get() {
-        return instance;
+        return INSTANCE;
     }
 
     @Override

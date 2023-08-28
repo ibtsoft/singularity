@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibtsoft.singularity.core.ActionsRepository;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
 import com.singularity.security.SecurityManager;
 
 import io.socket.engineio.server.EngineIoServer;
@@ -59,9 +59,7 @@ public class SocketIoServlet extends HttpServlet {
                 sessions.remove(socketSession);
                 LOGGER.debug("Client disconnected, id={}", socket.getId());
             });
-
         });
-
     }
 
     @Override

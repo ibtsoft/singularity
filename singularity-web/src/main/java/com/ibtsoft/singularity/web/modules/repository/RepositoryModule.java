@@ -1,19 +1,17 @@
 package com.ibtsoft.singularity.web.modules.repository;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ibtsoft.singularity.core.Entity;
-import com.ibtsoft.singularity.core.EntityValue;
-import com.ibtsoft.singularity.core.IRepository;
-import com.ibtsoft.singularity.core.RepositoryCrudListener;
+import com.ibtsoft.singularity.core.repository.IRepository;
+import com.ibtsoft.singularity.core.repository.RepositoryCrudListener;
+import com.ibtsoft.singularity.core.repository.entity.Entity;
 import com.ibtsoft.singularity.web.messages.Message;
 import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.modules.Module;
@@ -86,6 +84,8 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
 
                 repository.delete(gson.fromJson(gson.toJsonTree(repositoryCrudMessage).getAsJsonObject(), (Type) repository.getRepositoryClass()));
                 break;
+            default:
+                throw new RuntimeException("Unknown action");
         }
     }
 
@@ -103,6 +103,14 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
         HashMap<String, Object> data = new HashMap<>();
         data.put(entity.getEntityClass(), entity);
         RepositoryCrudReplyMessage message = new RepositoryCrudReplyMessage(UUID.randomUUID().toString(), "ADD", data);
+        sendMessage(message);
+    }
+
+    @Override
+    public void onUpdate(Entity<?> entity, Field field, Object value) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put(entity.getEntityClass(), entity);
+        RepositoryCrudReplyMessage message = new RepositoryCrudReplyMessage(UUID.randomUUID().toString(), "UPDATE", data);
         sendMessage(message);
     }
 

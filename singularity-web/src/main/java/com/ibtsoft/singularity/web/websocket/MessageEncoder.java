@@ -1,11 +1,11 @@
 package com.ibtsoft.singularity.web.websocket;
 
-import com.google.gson.Gson;
-import com.ibtsoft.singularity.web.messages.Message;
-
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
+
+import com.google.gson.Gson;
+import com.ibtsoft.singularity.web.messages.Message;
 
 public class MessageEncoder implements Encoder.Text<Message> {
 

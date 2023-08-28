@@ -14,7 +14,7 @@ import org.eclipse.jetty.websocket.server.WebSocketUpgradeFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibtsoft.singularity.core.ActionsRepository;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
 import com.singularity.security.SecurityManager;
 
 import io.socket.engineio.server.EngineIoServer;

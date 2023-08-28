@@ -1,9 +1,5 @@
 plugins {
-    `java-library`
-}
-
-repositories {
-    jcenter()
+    id("singularity.library-conventions")
 }
 
 dependencies {
@@ -22,6 +18,4 @@ dependencies {
     implementation("org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.40.v20210413")
     implementation("com.google.guava:guava:27.0.1-jre")
     implementation("com.google.code.gson:gson:2.8.6")
-
-    testImplementation("junit:junit:4.12")
 }

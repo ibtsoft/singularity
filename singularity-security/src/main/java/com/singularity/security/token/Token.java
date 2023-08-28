@@ -2,23 +2,20 @@ package com.singularity.security.token;
 
 import java.time.LocalDateTime;
 
-import com.ibtsoft.singularity.core.Entity;
-import com.singularity.security.User;
-
 public class Token {
 
-    private final Entity<User> user;
+    private final String username;
     private final String token;
     private final LocalDateTime expiration;
 
-    public Token(Entity<User> user, String token, LocalDateTime expiration) {
-        this.user = user;
+    public Token(String username, String token, LocalDateTime expiration) {
+        this.username = username;
         this.token = token;
         this.expiration = expiration;
     }
 
-    public Entity<User> getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
     public String getToken() {

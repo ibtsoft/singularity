@@ -4,6 +4,10 @@ public class RepositoryDescriptor {
 
     private final String repositoryName;
 
+    public static RepositoryDescriptor forClass(Class<?> repositoryEntityClass) {
+        return new RepositoryDescriptor(repositoryEntityClass.getSimpleName());
+    }
+
     public static RepositoryDescriptor forName(String repositoryName) {
         return new RepositoryDescriptor(repositoryName);
     }
@@ -15,6 +19,4 @@ public class RepositoryDescriptor {
     public String getRepositoryName() {
         return repositoryName;
     }
-
-
 }

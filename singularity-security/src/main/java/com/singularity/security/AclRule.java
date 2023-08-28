@@ -1,6 +1,6 @@
 package com.singularity.security;
 
-import com.ibtsoft.singularity.core.EntityRef;
+import com.ibtsoft.singularity.core.repository.entity.EntityRef;
 
 public class AclRule {
 

@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.messages.Message;
-import com.ibtsoft.singularity.web.modules.authentication.messages.LoginMessage;
-import com.ibtsoft.singularity.web.modules.authentication.messages.LoginResultMessage;
+import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.modules.Module;
 import com.ibtsoft.singularity.web.modules.action.ClassTypeAdapter;
+import com.ibtsoft.singularity.web.modules.authentication.messages.LoginMessage;
+import com.ibtsoft.singularity.web.modules.authentication.messages.LoginResultMessage;
 import com.ibtsoft.singularity.web.modules.authentication.messages.LoginTokenMessage;
 import com.singularity.security.LoginResult;
 import com.singularity.security.SecurityManager;
@@ -64,8 +64,9 @@ public class AuthenticationModule extends Module {
                 break;
             case "LOGOFF":
                 break;
+            default:
+                throw new RuntimeException("Unknown action");
         }
-
     }
 
     public void fireOnAuthenticationSuccess(String username, UserId userId) {
@@ -79,5 +80,4 @@ public class AuthenticationModule extends Module {
     public void removeAuthenticationResultListener(AuthenticationResultListener authenticationResultListener) {
         authenticationResultListeners.remove(authenticationResultListener);
     }
-
 }

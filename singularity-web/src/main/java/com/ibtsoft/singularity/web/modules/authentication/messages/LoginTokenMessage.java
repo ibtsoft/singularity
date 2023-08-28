@@ -1,6 +1,7 @@
 package com.ibtsoft.singularity.web.modules.authentication.messages;
 
 public class LoginTokenMessage {
+
     private String token;
 
     public String getToken() {

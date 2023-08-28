@@ -1,0 +1,8 @@
+[versions]
+mongodb ="2.12.3"
+
+[libraries]
+mongodb-java-driver = { module = "org.mongodb:mongo-java-driver", version.ref = "mongodb" }
+
+[bundles]
+

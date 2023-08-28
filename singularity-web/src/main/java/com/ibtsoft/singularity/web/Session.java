@@ -3,7 +3,7 @@ package com.ibtsoft.singularity.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibtsoft.singularity.core.ActionsRepository;
+import com.ibtsoft.singularity.core.action.ActionsRepository;
 import com.ibtsoft.singularity.web.messages.MessageSender;
 import com.ibtsoft.singularity.web.modules.Module;
 import com.ibtsoft.singularity.web.modules.action.ActionModule;
@@ -25,7 +25,7 @@ public abstract class Session implements MessageSender, AuthenticationResultList
     private final ActionModule actionModule;
 
     public Session(SecurityManager securityManager, ActionsRepository actionsRepository) {
-        authenticationModule = new AuthenticationModule(this,securityManager);
+        authenticationModule = new AuthenticationModule(this, securityManager);
         authenticationModule.addAuthenticationResultListener(this);
         modules.put(authenticationModule.getName(), authenticationModule);
 
@@ -48,5 +48,5 @@ public abstract class Session implements MessageSender, AuthenticationResultList
         authenticationModule.removeAuthenticationResultListener(this);
         authenticationModule.removeAuthenticationResultListener(repositoryModule);
         authenticationModule.removeAuthenticationResultListener(actionModule);
-    };
+    }
 }

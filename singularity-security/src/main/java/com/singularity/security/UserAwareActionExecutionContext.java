@@ -1,6 +1,6 @@
 package com.singularity.security;
 
-import com.ibtsoft.singularity.core.ActionExecutionContext;
+import com.ibtsoft.singularity.core.action.ActionExecutionContext;
 
 public class UserAwareActionExecutionContext extends ActionExecutionContext {
 

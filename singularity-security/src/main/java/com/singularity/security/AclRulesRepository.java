@@ -4,9 +4,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.ibtsoft.singularity.core.EntityValue;
-import com.ibtsoft.singularity.core.Persistence;
-import com.ibtsoft.singularity.core.Repository;
+import com.ibtsoft.singularity.core.persistence.Persistence;
+import com.ibtsoft.singularity.core.repository.Repository;
+import com.ibtsoft.singularity.core.repository.entity.EntityValue;
+import com.ibtsoft.singularity.core.repository.reflection.entitystructure.EntityStructureCache;
+import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 import static java.util.Collections.emptyMap;
 
@@ -14,12 +16,13 @@ public class AclRulesRepository extends Repository<AclRule> {
 
     private final Map<RepositoryUsername, Map<UUID, AclRule>> aclRulesByRepositoryAndUsername = new ConcurrentHashMap<>();
 
-    public AclRulesRepository(Class<AclRule> repositoryClass) {
-        super(repositoryClass);
+    public AclRulesRepository(Class<AclRule> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager) {
+        super(repositoryClass, entityStructureCache, transactionManager);
     }
 
-    public AclRulesRepository(Class<AclRule> repositoryClass, Persistence<AclRule> persistence) {
-        super(repositoryClass, persistence);
+    public AclRulesRepository(Class<AclRule> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager,
+        Persistence<AclRule> persistence) {
+        super(repositoryClass, entityStructureCache, transactionManager, persistence);
     }
 
     @Override
