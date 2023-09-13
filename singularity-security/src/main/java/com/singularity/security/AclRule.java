@@ -10,7 +10,7 @@ public class AclRule {
     private final boolean canView;
     private final boolean canChange;
 
-    public AclRule(UserId userId, EntityRef<?> entity, boolean isCreator, boolean canView, boolean canChange) {
+    public AclRule(final UserId userId, final EntityRef<?> entity, final boolean isCreator, final boolean canView, final boolean canChange) {
         this.userId = userId;
         this.entity = entity;
         this.isCreator = isCreator;

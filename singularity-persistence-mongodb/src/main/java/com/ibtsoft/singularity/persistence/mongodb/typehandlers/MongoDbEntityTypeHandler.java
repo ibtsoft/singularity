@@ -18,7 +18,7 @@ public class MongoDbEntityTypeHandler extends MongoDbTypeHandler {
 
     private static final String TYPE = "entity";
 
-    public MongoDbEntityTypeHandler(MongoDbTypeHandlers typeHandlers) {
+    public MongoDbEntityTypeHandler(final MongoDbTypeHandlers typeHandlers) {
         super(typeHandlers);
     }
 
@@ -28,7 +28,7 @@ public class MongoDbEntityTypeHandler extends MongoDbTypeHandler {
     }
 
     @Override
-    public BasicDBObject toBasicDBObject(Object value) {
+    public BasicDBObject toBasicDBObject(final Object value) {
         assert value instanceof Entity<?>;
 
         Entity<?> entity = (Entity<?>) value;
@@ -41,7 +41,7 @@ public class MongoDbEntityTypeHandler extends MongoDbTypeHandler {
     }
 
     @Override
-    public Object toObject(BasicDBObject value) {
+    public Object toObject(final BasicDBObject value) {
         assert TYPE.equals(value.getString(FIELD_TYPE));
 
         UUID id = UUID.fromString(value.getString(FIELD_ID));

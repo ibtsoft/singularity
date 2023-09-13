@@ -8,7 +8,7 @@ import com.mongodb.BasicDBObject;
 
 public class MongoDbCollectionTypesHandler extends MongoDbTypeHandler {
 
-    public MongoDbCollectionTypesHandler(MongoDbTypeHandlers typeHandlers) {
+    public MongoDbCollectionTypesHandler(final MongoDbTypeHandlers typeHandlers) {
         super(typeHandlers);
     }
 
@@ -18,13 +18,13 @@ public class MongoDbCollectionTypesHandler extends MongoDbTypeHandler {
     }
 
     @Override
-    public BasicDBObject toBasicDBObject(Object value) {
+    public BasicDBObject toBasicDBObject(final Object value) {
 
         return null;
     }
 
     @Override
-    public Object toObject(BasicDBObject value) {
+    public Object toObject(final BasicDBObject value) {
         return null;
     }
 }

@@ -7,7 +7,7 @@ public abstract class Module {
 
     private final MessageSender messageSender;
 
-    public Module(MessageSender messageSender) {
+    public Module(final MessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
@@ -15,7 +15,7 @@ public abstract class Module {
 
     public abstract void processMessage(Message message);
 
-    protected void sendMessage(Message message) {
+    protected void sendMessage(final Message message) {
         messageSender.sendMessage(message);
     }
 }

@@ -23,6 +23,7 @@ import com.mongodb.MongoClientURI;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("checkstyle:MagicNumber")
 public class MongoDbPersistenceTest {
 
     private static final String DB_NAME = "test";
@@ -62,6 +63,7 @@ public class MongoDbPersistenceTest {
     }
 
     @Test
+    @SuppressWarnings("checkstyle:MagicNumber")
     public void save() {
         Entity<OtherTestEntity> otherTestEntityEntity = otherTestEntityRepository.save(new OtherTestEntity());
 
@@ -120,7 +122,7 @@ public class MongoDbPersistenceTest {
             return intField;
         }
 
-        public void setIntField(int intField) {
+        public void setIntField(final int intField) {
             this.intField = intField;
         }
 
@@ -128,7 +130,7 @@ public class MongoDbPersistenceTest {
             return stringField;
         }
 
-        public void setStringField(String stringField) {
+        public void setStringField(final String stringField) {
             this.stringField = stringField;
         }
 
@@ -136,7 +138,7 @@ public class MongoDbPersistenceTest {
             return bigDecimalField;
         }
 
-        public void setBigDecimalField(BigDecimal bigDecimalField) {
+        public void setBigDecimalField(final BigDecimal bigDecimalField) {
             this.bigDecimalField = bigDecimalField;
         }
 
@@ -144,7 +146,7 @@ public class MongoDbPersistenceTest {
             return otherField;
         }
 
-        public void setOtherField(Entity<OtherTestEntity> otherField) {
+        public void setOtherField(final Entity<OtherTestEntity> otherField) {
             this.otherField = otherField;
         }
     }
@@ -157,7 +159,7 @@ public class MongoDbPersistenceTest {
             return intField;
         }
 
-        public void setIntField(int intField) {
+        public void setIntField(final int intField) {
             this.intField = intField;
         }
     }

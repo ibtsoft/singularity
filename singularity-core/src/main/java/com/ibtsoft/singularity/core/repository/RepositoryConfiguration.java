@@ -1,11 +1,11 @@
 package com.ibtsoft.singularity.core.repository;
 
-public class RepositoryConfiguration {
+public final class RepositoryConfiguration {
 
     private boolean enableAudit;
     private boolean enableSoftDelete;
 
-    private RepositoryConfiguration(Builder builder) {
+    private RepositoryConfiguration(final Builder builder) {
         setEnableAudit(builder.enableAudit);
         setEnableSoftDelete(builder.enableSoftDelete);
     }
@@ -18,7 +18,7 @@ public class RepositoryConfiguration {
         return enableAudit;
     }
 
-    public void setEnableAudit(boolean enableAudit) {
+    public void setEnableAudit(final boolean enableAudit) {
         this.enableAudit = enableAudit;
     }
 
@@ -26,7 +26,7 @@ public class RepositoryConfiguration {
         return enableSoftDelete;
     }
 
-    public void setEnableSoftDelete(boolean enableSoftDelete) {
+    public void setEnableSoftDelete(final boolean enableSoftDelete) {
         this.enableSoftDelete = enableSoftDelete;
     }
 
@@ -35,14 +35,15 @@ public class RepositoryConfiguration {
         private boolean enableAudit;
         private boolean enableSoftDelete;
 
+        @SuppressWarnings("checkstyle:WhitespaceAround")
         private Builder() {}
 
-        public Builder enableAudit(boolean enableAudit) {
+        public Builder enableAudit(final boolean enableAudit) {
             this.enableAudit = enableAudit;
             return this;
         }
 
-        public Builder enableSoftDelete(boolean enableSoftDelete) {
+        public Builder enableSoftDelete(final boolean enableSoftDelete) {
             this.enableSoftDelete = enableSoftDelete;
             return this;
         }

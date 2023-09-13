@@ -35,7 +35,7 @@ public class SecurityManager implements IRepositoryManager {
 
     private final Map<RepositoryUsername, SecuredRepository<?>> securedRepositories = new ConcurrentHashMap<>();
 
-    public SecurityManager(List<EntityTypeConfiguration> entityTypes, TransactionManager transactionManager) {
+    public SecurityManager(final List<EntityTypeConfiguration> entityTypes, final TransactionManager transactionManager) {
         List<EntityTypeConfiguration> allEntityTypes = new ArrayList<>(entityTypes);
         allEntityTypes.add(new EntityTypeConfiguration(User.class, UserRepository.class));
         allEntityTypes.add(new EntityTypeConfiguration(AclRule.class, AclRulesRepository.class));
@@ -53,7 +53,7 @@ public class SecurityManager implements IRepositoryManager {
         userRepository.findAll().forEach(userEntity -> users.put(userEntity.getValue().getUsername(), userEntity.getId()));
     }
 
-    public EntityValue<User> addUser(User user) {
+    public EntityValue<User> addUser(final User user) {
         if (users.containsKey(user.getUsername())) {
             throw new RuntimeException(format("User with username %s already exists", user.getUsername()));
         }
@@ -62,7 +62,7 @@ public class SecurityManager implements IRepositoryManager {
         return userEntity;
     }
 
-    public LoginResult login(String token) {
+    public LoginResult login(final String token) {
         Optional<EntityValue<Token>> tokenEntityValue = tokenRepository.findByTokenValue(token);
         if (tokenEntityValue.isPresent() && tokenEntityValue.get().getValue().getExpiration().isAfter(LocalDateTime.now())) {
             EntityValue<User> user = getUserByUsername(tokenEntityValue.get().getValue().getUsername());
@@ -73,7 +73,7 @@ public class SecurityManager implements IRepositoryManager {
         }
     }
 
-    public LoginResult login(String username, String password) {
+    public LoginResult login(final String username, final String password) {
         Optional<EntityValue<User>> user = findUserByUsername(username);
         if (user.isPresent()) {
             if (user.get().getValue().getPassword().equals(password)) {
@@ -87,7 +87,7 @@ public class SecurityManager implements IRepositoryManager {
     }
 
     @Override
-    public <T> IRepository<T> getRepository(RepositoryDescriptor repositoryDescriptor) {
+    public <T> IRepository<T> getRepository(final RepositoryDescriptor repositoryDescriptor) {
         if (!(repositoryDescriptor instanceof SecuredRepositoryDescriptor)) {
             throw new RuntimeException("SecuredRepositoryManager requires  SecuredRepositoryDescriptor to get a repository");
         }
@@ -99,26 +99,26 @@ public class SecurityManager implements IRepositoryManager {
                 aclRulesRepository));
     }
 
-    public <T> SecuredRepository<T> getRepository(Class<T> repositoryClass, UserId username) {
+    public <T> SecuredRepository<T> getRepository(final Class<T> repositoryClass, final UserId username) {
         return (SecuredRepository<T>) getRepository(repositoryClass.getSimpleName(), username);
     }
 
-    public SecuredRepository<?> getRepository(String repository, UserId username) {
+    public SecuredRepository<?> getRepository(final String repository, final UserId username) {
         Repository<?> repo = repositoriesManager.getRepository(repository);
         return securedRepositories.computeIfAbsent(new RepositoryUsername(repository, username),
             repositoryUsername -> new SecuredRepository<>(username, repo, aclRulesRepository));
     }
 
     @Override
-    public <T, R extends Repository<T>> R getRepository(Class<R> repositoryClass, Class<T> entityClass) {
+    public <T, R extends Repository<T>> R getRepository(final Class<R> repositoryClass, final Class<T> entityClass) {
         return repositoriesManager.getRepository(repositoryClass, entityClass);
     }
 
-    public EntityValue<User> getUserByUsername(String username) {
+    public EntityValue<User> getUserByUsername(final String username) {
         return findUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
-    private Optional<EntityValue<User>> findUserByUsername(String username) {
+    private Optional<EntityValue<User>> findUserByUsername(final String username) {
         UUID id = users.get(username);
         return id != null ? Optional.of(userRepository.findById(id)) : Optional.empty();
     }
@@ -131,7 +131,7 @@ public class SecurityManager implements IRepositoryManager {
         return userRepository;
     }
 
-    public void addAcl(UserId userId, EntityRef<?> entity, boolean isCreator, boolean canView, boolean canChange) {
+    public void addAcl(final UserId userId, final EntityRef<?> entity, final boolean isCreator, final boolean canView, final boolean canChange) {
         aclRulesRepository.save(new AclRule(userId, entity, isCreator, canView, canChange));
     }
 }

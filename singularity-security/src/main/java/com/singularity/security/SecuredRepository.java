@@ -31,7 +31,7 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
 
     private final List<RepositoryCrudListener> crudListeners = new CopyOnWriteArrayList<>();
 
-    public SecuredRepository(UserId userId, Repository<T> repository, AclRulesRepository aclRulesRepository) {
+    public SecuredRepository(final UserId userId, final Repository<T> repository, final AclRulesRepository aclRulesRepository) {
         this.userId = userId;
         this.repository = repository;
         this.aclRulesRepository = aclRulesRepository;
@@ -40,7 +40,7 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
-    public EntityValue<T> findById(UUID id) {
+    public EntityValue<T> findById(final UUID id) {
         Map<UUID, AclRule> aclRules = aclRulesRepository.findByUserIdAndRepository(userId, repository.getName());
         return repository.findById(id);
     }
@@ -55,7 +55,7 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
-    public void delete(EntityValue<T> entity) {
+    public void delete(final EntityValue<T> entity) {
         repository.delete(entity);
     }
 
@@ -70,26 +70,26 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
-    public void addCrudListener(RepositoryCrudListener listener) {
+    public void addCrudListener(final RepositoryCrudListener listener) {
         crudListeners.add(listener);
     }
 
     @Override
-    public void removeCrudListener(RepositoryCrudListener listener) {
+    public void removeCrudListener(final RepositoryCrudListener listener) {
         crudListeners.remove(listener);
     }
 
     @Override
-    public void onFieldChanged(UUID id, Object target, Field field, Object[] args) {
+    public void onFieldChanged(final UUID id, final Object target, final Field field, final Object[] args) {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(final UUID id) {
         repository.deleteById(id);
     }
 
     @Override
-    public EntityValue<T> save(T item) {
+    public EntityValue<T> save(final T item) {
         EntityValue<T> entityValue = repository.save(item);
         aclRulesRepository.save(new AclRule(userId, entityValue.getRef(), true, true, true));
         fireCrudListenerAdd(entityValue);
@@ -97,18 +97,18 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
-    public Entity<T> update(Id id, Object... properties) {
+    public Entity<T> update(final Id id, final Object... properties) {
         return repository.update(id, properties);
     }
 
-    private void fireCrudListenerAdd(Entity<T> entity) {
+    private void fireCrudListenerAdd(final Entity<T> entity) {
         Map<UUID, AclRule> aclRules = aclRulesRepository.findByUserIdAndRepository(userId, repository.getName());
         if (aclRules.containsKey(entity.getId()) && aclRules.get(entity.getId()).isCanView()) {
             crudListeners.forEach(repositoryCrudListener -> repositoryCrudListener.onAdd(entity));
         }
     }
 
-    private void fireCrudListenerUpdate(Entity<?> entity, Field field, Object value) {
+    private void fireCrudListenerUpdate(final Entity<?> entity, final Field field, final Object value) {
         Map<UUID, AclRule> aclRules = aclRulesRepository.findByUserIdAndRepository(userId, repository.getName());
         if (aclRules.containsKey(entity.getId()) && aclRules.get(entity.getId()).isCanView()) {
             Observable<FieldChange> fieldChangeObservable = Observable.just(new FieldChange(entity, field, value));
@@ -124,12 +124,12 @@ public class SecuredRepository<T> implements IRepository<T>, RepositoryCrudListe
     }
 
     @Override
-    public void onAdd(Entity entity) {
+    public void onAdd(final Entity entity) {
         fireCrudListenerAdd(entity);
     }
 
     @Override
-    public void onUpdate(Entity<?> entity, Field field, Object value) {
+    public void onUpdate(final Entity<?> entity, final Field field, final Object value) {
         fireCrudListenerUpdate(entity, field, value);
     }
 }

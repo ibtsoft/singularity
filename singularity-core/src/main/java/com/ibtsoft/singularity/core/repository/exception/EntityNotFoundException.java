@@ -8,12 +8,12 @@ public class EntityNotFoundException extends RepositoryException {
 
     private final Id entityId;
 
-    public EntityNotFoundException(String repositoryName, Id entityId) {
+    public EntityNotFoundException(final String repositoryName, final Id entityId) {
         super(makeMessage(repositoryName, entityId), makeMessage(repositoryName, entityId), repositoryName);
         this.entityId = entityId;
     }
 
-    private static String makeMessage(String repositoryName, Id entityId) {
+    private static String makeMessage(final String repositoryName, final Id entityId) {
         return format("Entity not found, repositoryName=%s, id=%s,", repositoryName, entityId);
     }
 

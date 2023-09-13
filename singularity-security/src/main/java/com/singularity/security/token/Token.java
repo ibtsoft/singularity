@@ -8,7 +8,7 @@ public class Token {
     private final String token;
     private final LocalDateTime expiration;
 
-    public Token(String username, String token, LocalDateTime expiration) {
+    public Token(final String username, final String token, final LocalDateTime expiration) {
         this.username = username;
         this.token = token;
         this.expiration = expiration;

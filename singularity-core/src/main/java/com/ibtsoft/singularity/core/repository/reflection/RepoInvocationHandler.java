@@ -32,8 +32,8 @@ public class RepoInvocationHandler implements MethodHandler, TransactionListener
 
     private final Map<Transaction, Stack<TransactionBuffer>> transactionsBuffer = new ConcurrentHashMap<>();
 
-    public RepoInvocationHandler(UUID id, Object target, EntityStructureCache entityStructureCache, Repository<?> repository,
-        TransactionManager transactionManager) {
+    public RepoInvocationHandler(final UUID id, final Object target, final EntityStructureCache entityStructureCache, final Repository<?> repository,
+        final TransactionManager transactionManager) {
         this.id = id;
         this.target = target;
         this.entityStructureCache = entityStructureCache;
@@ -41,12 +41,13 @@ public class RepoInvocationHandler implements MethodHandler, TransactionListener
         this.transactionManager = transactionManager;
     }
 
-    private String getPropertyName(Method method) {
+    @SuppressWarnings("checkstyle:MagicNumber")
+    private String getPropertyName(final Method method) {
         return method.getName().substring(3);
     }
 
     @Override
-    public Object invoke(Object self, Method method, Method proceed, Object[] args) throws Throwable {
+    public Object invoke(final Object self, final Method method, final Method proceed, final Object[] args) throws Throwable {
         Object result;
         EntityStructure entityStructure = entityStructureCache.getEntityStructure(target.getClass());
         if (method.getName().startsWith("set")) {
@@ -73,7 +74,7 @@ public class RepoInvocationHandler implements MethodHandler, TransactionListener
     }
 
     @Override
-    public void onCommit(Transaction transaction) {
+    public void onCommit(final Transaction transaction) {
         Stack<TransactionBuffer> transactionBufferStack = transactionsBuffer.get(transaction);
 
         EntityStructure entityStructure = entityStructureCache.getEntityStructure(target.getClass());
@@ -90,7 +91,7 @@ public class RepoInvocationHandler implements MethodHandler, TransactionListener
     }
 
     @Override
-    public void onRollback(Transaction transaction) {
+    public void onRollback(final Transaction transaction) {
         transactionsBuffer.remove(transaction);
     }
 }

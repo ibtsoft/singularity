@@ -33,7 +33,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
     private String username;
     private UserId userId;
 
-    public RepositoryModule(MessageSender messageSender, SecurityManager securityManager) {
+    public RepositoryModule(final MessageSender messageSender, final SecurityManager securityManager) {
         super(messageSender);
         this.securityManager = securityManager;
     }
@@ -44,7 +44,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
     }
 
     @Override
-    public void processMessage(Message message) {
+    public void processMessage(final Message message) {
         RepositoryCrudReplyMessage.RepositoryCrudMessageActionEnum actionEnum = RepositoryCrudReplyMessage.RepositoryCrudMessageActionEnum.valueOf(
             message.getType());
 
@@ -89,7 +89,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
         }
     }
 
-    private void sendSyncObjects(List<IRepository<?>> repositories) {
+    private void sendSyncObjects(final List<IRepository<?>> repositories) {
         HashMap<String, Object> data = new HashMap<>();
         repositories.forEach(repository -> {
             data.put(repository.getName(), repository.findAll());
@@ -99,7 +99,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
     }
 
     @Override
-    public void onAdd(Entity<?> entity) {
+    public void onAdd(final Entity<?> entity) {
         HashMap<String, Object> data = new HashMap<>();
         data.put(entity.getEntityClass(), entity);
         RepositoryCrudReplyMessage message = new RepositoryCrudReplyMessage(UUID.randomUUID().toString(), "ADD", data);
@@ -107,7 +107,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
     }
 
     @Override
-    public void onUpdate(Entity<?> entity, Field field, Object value) {
+    public void onUpdate(final Entity<?> entity, final Field field, final Object value) {
         HashMap<String, Object> data = new HashMap<>();
         data.put(entity.getEntityClass(), entity);
         RepositoryCrudReplyMessage message = new RepositoryCrudReplyMessage(UUID.randomUUID().toString(), "UPDATE", data);
@@ -115,7 +115,7 @@ public class RepositoryModule extends Module implements RepositoryCrudListener, 
     }
 
     @Override
-    public void onAuthenticationSuccess(String username, UserId userId) {
+    public void onAuthenticationSuccess(final String username, final UserId userId) {
         this.username = username;
         this.userId = userId;
     }

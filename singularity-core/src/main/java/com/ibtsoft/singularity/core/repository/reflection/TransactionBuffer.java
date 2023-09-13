@@ -6,7 +6,7 @@ public class TransactionBuffer {
 
     private final Object[] value;
 
-    public TransactionBuffer(String property, Object[] value) {
+    public TransactionBuffer(final String property, final Object[] value) {
         this.property = property;
         this.value = value;
     }

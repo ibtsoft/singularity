@@ -11,7 +11,7 @@ public class ActionMessage {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -19,7 +19,7 @@ public class ActionMessage {
         return params;
     }
 
-    public void setParams(Map<String, Object> params) {
+    public void setParams(final Map<String, Object> params) {
         this.params = params;
     }
 }

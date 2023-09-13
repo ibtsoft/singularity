@@ -6,11 +6,11 @@ public class User {
 
     private String password;
 
-    public User(String username) {
+    public User(final String username) {
         this.username = username;
     }
 
-    public User(String username, String password) {
+    public User(final String username, final String password) {
         this.username = username;
         this.password = password;
     }
@@ -23,7 +23,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 }

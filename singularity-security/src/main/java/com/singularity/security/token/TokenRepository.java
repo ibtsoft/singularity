@@ -11,19 +11,20 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 public class TokenRepository extends Repository<Token> {
 
-    public TokenRepository(EntityStructureCache entityStructureCache, TransactionManager transactionManager) {
+    public TokenRepository(final EntityStructureCache entityStructureCache, final TransactionManager transactionManager) {
         super(Token.class, entityStructureCache, transactionManager);
     }
 
-    public Optional<EntityValue<Token>> findByTokenValue(String tokenValue) {
+    public Optional<EntityValue<Token>> findByTokenValue(final String tokenValue) {
         return findAll().stream().filter(token -> token.getValue().getToken().equals(tokenValue)).findFirst();
     }
 
-    public Token generateToken(String username) {
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public Token generateToken(final String username) {
         return save(new Token(username, UUID.randomUUID().toString(), LocalDateTime.now().plusDays(7))).getValue();
     }
 
-    public Token generateToken(String username, UUID oldTokenId) {
+    public Token generateToken(final String username, final UUID oldTokenId) {
         deleteById(oldTokenId);
 
         return generateToken(username);

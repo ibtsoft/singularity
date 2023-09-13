@@ -8,7 +8,7 @@ public class EntityBasicProperty extends EntityProperty {
     private final Method getter;
     private final Method setter;
 
-    public EntityBasicProperty(Field field, Method getter, Method setter) {
+    public EntityBasicProperty(final Field field, final Method getter, final Method setter) {
         super(field);
         this.getter = getter;
         this.setter = setter;

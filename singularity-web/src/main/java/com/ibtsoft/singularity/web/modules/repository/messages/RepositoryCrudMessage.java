@@ -12,7 +12,7 @@ public class RepositoryCrudMessage {
         return repository;
     }
 
-    public void setRepository(String repository) {
+    public void setRepository(final String repository) {
         this.repository = repository;
     }
 
@@ -20,7 +20,7 @@ public class RepositoryCrudMessage {
         return entities;
     }
 
-    public void setEntities(List<Object> entities) {
+    public void setEntities(final List<Object> entities) {
         this.entities = entities;
     }
 }

@@ -63,7 +63,7 @@ public class SocketIoServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void service(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         mEngineIoServer.handleRequest(request, response);
     }
 }

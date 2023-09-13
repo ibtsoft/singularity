@@ -6,7 +6,7 @@ public class EntityValue<T> extends Entity<T> {
 
     private final T value;
 
-    public EntityValue(UUID id, String entityClass, T value) {
+    public EntityValue(final UUID id, final String entityClass, final T value) {
         super(id, entityClass);
         this.value = value;
     }

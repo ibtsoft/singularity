@@ -41,7 +41,7 @@ public class TransactionManager {
         commitTransaction(getCurrentTransaction());
     }
 
-    public void commitTransaction(Transaction transaction) {
+    public void commitTransaction(final Transaction transaction) {
         synchronized (transaction) {
             try {
                 transaction.commit();

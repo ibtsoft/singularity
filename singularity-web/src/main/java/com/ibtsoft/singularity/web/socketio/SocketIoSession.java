@@ -26,7 +26,7 @@ public class SocketIoSession extends Session {
 
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Class.class, ClassTypeAdapter.get()).create();
 
-    public SocketIoSession(SocketIoSocket socket, SecurityManager securityManager, ActionsRepository actionsRepository) {
+    public SocketIoSession(final SocketIoSocket socket, final SecurityManager securityManager, final ActionsRepository actionsRepository) {
         super(securityManager, actionsRepository);
         this.socket = socket;
 
@@ -56,7 +56,7 @@ public class SocketIoSession extends Session {
     }
 
     @Override
-    public void sendMessage(Message message) {
+    public void sendMessage(final Message message) {
         try {
             socket.send(message.getModule(), gson.toJson(message));
             LOGGER.info("Sent message: {}", message);

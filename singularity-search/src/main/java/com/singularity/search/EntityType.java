@@ -6,7 +6,7 @@ public class EntityType {
 
     private final String type;
 
-    public EntityType(String type) {
+    public EntityType(final String type) {
         this.type = type;
     }
 
@@ -15,7 +15,7 @@ public class EntityType {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

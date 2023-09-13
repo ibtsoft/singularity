@@ -6,8 +6,8 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 public class SearchIndexRepository extends Repository<IndexedItem> {
 
-    public SearchIndexRepository(Class<IndexedItem> repositoryClass,
-        EntityStructureCache entityStructureCache, TransactionManager transactionManager) {
+    public SearchIndexRepository(final Class<IndexedItem> repositoryClass, final EntityStructureCache entityStructureCache,
+        final TransactionManager transactionManager) {
         super(repositoryClass, entityStructureCache, transactionManager);
     }
 }

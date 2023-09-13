@@ -19,7 +19,8 @@ public class WebSocketJettyServer {
 
     private Server server;
 
-    public void start(SecurityManager securityManager, ActionsRepository actionsRepository) throws Exception {
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public void start(final SecurityManager securityManager, final ActionsRepository actionsRepository) throws Exception {
         server = new Server(8080);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

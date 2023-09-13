@@ -26,7 +26,7 @@ public class ActionModule extends Module implements AuthenticationResultListener
     private String username;
     private UserId userId;
 
-    public ActionModule(MessageSender messageSender, ActionsRepository actionsRepository) {
+    public ActionModule(final MessageSender messageSender, final ActionsRepository actionsRepository) {
         super(messageSender);
         this.actionsRepository = actionsRepository;
     }
@@ -36,7 +36,7 @@ public class ActionModule extends Module implements AuthenticationResultListener
     }
 
     @Override
-    public void processMessage(Message message) {
+    public void processMessage(final Message message) {
         ActionMessage actionMessage = gson.fromJson(gson.toJsonTree(message.getPayload()).getAsJsonObject(), ActionMessage.class);
         ActionResultMessage resultMessage;
         switch (message.getType()) {
@@ -54,7 +54,7 @@ public class ActionModule extends Module implements AuthenticationResultListener
     }
 
     @Override
-    public void onAuthenticationSuccess(String username, UserId userId) {
+    public void onAuthenticationSuccess(final String username, final UserId userId) {
         this.username = username;
         this.userId = userId;
     }

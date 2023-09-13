@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 
 public class EntityStructure {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(EntityStructure.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityStructure.class);
 
     private final Map<String, Method> otherMethods = new HashMap<>();
 
     private final Map<String, EntityBasicProperty> properties = new HashMap<>();
 
-    public EntityStructure(Class<?> entityClass) {
+    public EntityStructure(final Class<?> entityClass) {
         LOGGER.info("Processing structure of entity class {}", entityClass.getSimpleName());
         Map<String, Method> methods = new HashMap<>();
 
@@ -41,7 +41,7 @@ public class EntityStructure {
         otherMethods.putAll(methods);
     }
 
-    public EntityBasicProperty getProperty(String propertyName) {
+    public EntityBasicProperty getProperty(final String propertyName) {
         return properties.get(propertyName);
     }
 
@@ -49,7 +49,7 @@ public class EntityStructure {
         return properties.values();
     }
 
-    public Method getMethod(String methodName) {
+    public Method getMethod(final String methodName) {
         return otherMethods.get(methodName);
     }
 }

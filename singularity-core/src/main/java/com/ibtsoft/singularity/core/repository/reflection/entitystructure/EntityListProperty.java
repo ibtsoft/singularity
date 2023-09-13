@@ -9,7 +9,7 @@ public class EntityListProperty extends EntityProperty {
     private final Method add;
     private final Method remove;
 
-    public EntityListProperty(Field field, Method getter, Method add, Method remove) {
+    public EntityListProperty(final Field field, final Method getter, final Method add, final Method remove) {
         super(field);
         this.getter = getter;
         this.add = add;

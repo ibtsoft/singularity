@@ -27,7 +27,8 @@ public class SocketIoJettyServer {
 
     private Server server;
 
-    public void start(SecurityManager securityManager, ActionsRepository actionsRepository) throws Exception {
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public void start(final SecurityManager securityManager, final ActionsRepository actionsRepository) throws Exception {
         server = new Server(8080);
 
         Slf4jRequestLogWriter slf4jWriter = new Slf4jRequestLogWriter();
@@ -38,11 +39,7 @@ public class SocketIoJettyServer {
 
         EngineIoServerOptions engineIoServerOptions = EngineIoServerOptions.newFromDefault();
         engineIoServerOptions.setHandshakeInterceptor((query, headers) -> {
-            if (query.getOrDefault("username", "").equals("abc")) {
-                return true;
-            } else {
-                return true;
-            }
+            return true;
         });
         EngineIoServer engineIoServer = new EngineIoServer(engineIoServerOptions);
 

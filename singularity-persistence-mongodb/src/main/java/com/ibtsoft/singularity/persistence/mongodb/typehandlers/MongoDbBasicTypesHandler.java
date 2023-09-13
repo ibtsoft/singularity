@@ -19,7 +19,7 @@ public class MongoDbBasicTypesHandler extends MongoDbTypeHandler {
     private static final String TYPE_STRING = "String";
     private static final String TYPE_BIG_DECIMAL = "BigDecimal";
 
-    public MongoDbBasicTypesHandler(MongoDbTypeHandlers typeHandlers) {
+    public MongoDbBasicTypesHandler(final MongoDbTypeHandlers typeHandlers) {
         super(typeHandlers);
     }
 
@@ -29,7 +29,7 @@ public class MongoDbBasicTypesHandler extends MongoDbTypeHandler {
     }
 
     @Override
-    public BasicDBObject toBasicDBObject(Object value) {
+    public BasicDBObject toBasicDBObject(final Object value) {
         assert getSupportedClasses().contains(value.getClass().getSimpleName());
 
         String type = value.getClass().getSimpleName();
@@ -53,7 +53,7 @@ public class MongoDbBasicTypesHandler extends MongoDbTypeHandler {
     }
 
     @Override
-    public Object toObject(BasicDBObject value) {
+    public Object toObject(final BasicDBObject value) {
         assert getSupportedClasses().contains(value.getString(FIELD_TYPE));
 
         Object result;

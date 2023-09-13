@@ -15,6 +15,7 @@ import com.singularity.security.UserId;
 
 public abstract class Session implements MessageSender, AuthenticationResultListener {
 
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     protected Map<String, Module> modules = new HashMap<>();
 
     private String username;
@@ -24,7 +25,7 @@ public abstract class Session implements MessageSender, AuthenticationResultList
     private final RepositoryModule repositoryModule;
     private final ActionModule actionModule;
 
-    public Session(SecurityManager securityManager, ActionsRepository actionsRepository) {
+    public Session(final SecurityManager securityManager, final ActionsRepository actionsRepository) {
         authenticationModule = new AuthenticationModule(this, securityManager);
         authenticationModule.addAuthenticationResultListener(this);
         modules.put(authenticationModule.getName(), authenticationModule);
@@ -39,7 +40,7 @@ public abstract class Session implements MessageSender, AuthenticationResultList
     }
 
     @Override
-    public void onAuthenticationSuccess(String username, UserId userId) {
+    public void onAuthenticationSuccess(final String username, final UserId userId) {
         this.username = username;
         this.userId = userId;
     }

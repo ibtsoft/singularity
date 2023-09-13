@@ -16,17 +16,18 @@ public class AclRulesRepository extends Repository<AclRule> {
 
     private final Map<RepositoryUsername, Map<UUID, AclRule>> aclRulesByRepositoryAndUsername = new ConcurrentHashMap<>();
 
-    public AclRulesRepository(Class<AclRule> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager) {
+    public AclRulesRepository(final Class<AclRule> repositoryClass, final EntityStructureCache entityStructureCache,
+        final TransactionManager transactionManager) {
         super(repositoryClass, entityStructureCache, transactionManager);
     }
 
-    public AclRulesRepository(Class<AclRule> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager,
-        Persistence<AclRule> persistence) {
+    public AclRulesRepository(final Class<AclRule> repositoryClass, final EntityStructureCache entityStructureCache,
+        final TransactionManager transactionManager, final Persistence<AclRule> persistence) {
         super(repositoryClass, entityStructureCache, transactionManager, persistence);
     }
 
     @Override
-    public EntityValue<AclRule> save(AclRule item) {
+    public EntityValue<AclRule> save(final AclRule item) {
         EntityValue<AclRule> aclRule = super.save(item);
         aclRulesByRepositoryAndUsername
             .computeIfAbsent(new RepositoryUsername(item.getEntity().getEntityClass(), item.getUserId()), repositoryUsername -> new ConcurrentHashMap<>())
@@ -34,7 +35,7 @@ public class AclRulesRepository extends Repository<AclRule> {
         return aclRule;
     }
 
-    public Map<UUID, AclRule> findByUserIdAndRepository(UserId userId, String repositoryName) {
+    public Map<UUID, AclRule> findByUserIdAndRepository(final UserId userId, final String repositoryName) {
         return aclRulesByRepositoryAndUsername.getOrDefault(new RepositoryUsername(repositoryName, userId), emptyMap());
     }
 }

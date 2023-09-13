@@ -10,8 +10,8 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 public class SecuredRepositoryManagerFactory extends RepositoryManagerFactory {
 
     @Override
-    public IRepositoryManager makeRepositoryManager(List<SingularityConfiguration.EntityTypeConfiguration> entityTypes,
-        TransactionManager transactionManager) {
+    public IRepositoryManager makeRepositoryManager(final List<SingularityConfiguration.EntityTypeConfiguration> entityTypes,
+        final TransactionManager transactionManager) {
         return new SecurityManager(entityTypes, transactionManager);
     }
 }

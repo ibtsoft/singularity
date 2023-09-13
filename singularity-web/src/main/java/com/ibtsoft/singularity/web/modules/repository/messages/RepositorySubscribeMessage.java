@@ -10,7 +10,7 @@ public class RepositorySubscribeMessage {
         return repositories;
     }
 
-    public void setRepositories(List<String> repositories) {
+    public void setRepositories(final List<String> repositories) {
         this.repositories = repositories;
     }
 }

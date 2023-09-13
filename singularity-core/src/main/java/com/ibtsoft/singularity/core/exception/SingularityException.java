@@ -4,9 +4,8 @@ public class SingularityException extends RuntimeException {
 
     private final String internalMessage;
 
-    public SingularityException(String message, String internalMessage) {
+    public SingularityException(final String message, final String internalMessage) {
         super(message);
         this.internalMessage = internalMessage;
     }
-
 }

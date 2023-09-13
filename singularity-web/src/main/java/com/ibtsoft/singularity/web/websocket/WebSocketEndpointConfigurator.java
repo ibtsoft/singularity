@@ -10,12 +10,12 @@ public class WebSocketEndpointConfigurator extends ServerEndpointConfig.Configur
     private final SecurityManager securityManager;
     private final ActionsRepository actionsRepository;
 
-    public WebSocketEndpointConfigurator(SecurityManager securityManager, ActionsRepository actionsRepository) {
+    public WebSocketEndpointConfigurator(final SecurityManager securityManager, final ActionsRepository actionsRepository) {
         this.securityManager = securityManager;
         this.actionsRepository = actionsRepository;
     }
 
-    public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
+    public <T> T getEndpointInstance(final Class<T> clazz) throws InstantiationException {
         return (T) new MainEndpoint(securityManager, actionsRepository);
     }
 }

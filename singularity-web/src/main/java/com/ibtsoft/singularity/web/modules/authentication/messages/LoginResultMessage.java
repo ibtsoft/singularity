@@ -14,7 +14,7 @@ public class LoginResultMessage extends MessageReply {
 
     private final Token token;
 
-    public LoginResultMessage(Message message, LoginResult loginResult) {
+    public LoginResultMessage(final Message message, final LoginResult loginResult) {
         super(message.getMeta(),
             AuthenticationModule.AUTHENTICATION_MODULE_NAME,
             "LOGIN",

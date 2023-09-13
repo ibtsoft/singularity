@@ -8,7 +8,7 @@ public class LoginTokenMessage {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(final String token) {
         this.token = token;
     }
 

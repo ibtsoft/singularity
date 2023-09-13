@@ -12,11 +12,11 @@ public class MongoDbTypeHandlers {
 
     private final Map<String, MongoDbTypeHandler> typeHandlers = new HashMap<>();
 
-    public MongoDbTypeHandler getHandler(EntityBasicProperty property) {
+    public MongoDbTypeHandler getHandler(final EntityBasicProperty property) {
         return typeHandlers.get(property.getField().getType().getSimpleName());
     }
 
-    public MongoDbTypeHandler getHandler(Class<?> valueClass) {
+    public MongoDbTypeHandler getHandler(final Class<?> valueClass) {
         MongoDbTypeHandler handler = null;
         Class<?> currentClass = valueClass;
         while (handler == null && currentClass != null) {
@@ -29,7 +29,7 @@ public class MongoDbTypeHandlers {
         return handler;
     }
 
-    public <T extends MongoDbTypeHandler> void addTypeHandler(Class<T> typeHandlerClass) {
+    public <T extends MongoDbTypeHandler> void addTypeHandler(final Class<T> typeHandlerClass) {
         T typeHandler;
 
         try {

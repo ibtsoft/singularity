@@ -24,7 +24,7 @@ public class MongoDbPersistenceUnit extends PersistenceUnit {
     private MongoClient mongoClient;
     private DB db;
 
-    public MongoDbPersistenceUnit(EntityStructureCache entityStructureCache, String uri, String dbName) {
+    public MongoDbPersistenceUnit(final EntityStructureCache entityStructureCache, final String uri, final String dbName) {
         this.entityStructureCache = entityStructureCache;
         this.typeHandlers = new MongoDbTypeHandlers();
         this.uri = uri;
@@ -49,12 +49,12 @@ public class MongoDbPersistenceUnit extends PersistenceUnit {
     }
 
     @Override
-    public <T> Persistence<T> getPersistence(Class<T> entityClass) {
+    public <T> Persistence<T> getPersistence(final Class<T> entityClass) {
         return new MongoDbPersistence<T>(db.getCollection(entityClass.getSimpleName()), entityClass, entityStructureCache.getEntityStructure(entityClass),
             typeHandlers);
     }
 
-    public <T extends MongoDbTypeHandler> void addTypeHandler(Class<T> typeHandlerClass) {
+    public <T extends MongoDbTypeHandler> void addTypeHandler(final Class<T> typeHandlerClass) {
         typeHandlers.addTypeHandler(typeHandlerClass);
     }
 }

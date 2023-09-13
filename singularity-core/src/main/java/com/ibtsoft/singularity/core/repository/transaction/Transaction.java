@@ -12,7 +12,7 @@ public class Transaction {
 
     private final List<WeakReference<TransactionListener>> transactionListeners = new ArrayList<>();
 
-    public Transaction(UUID id) {
+    public Transaction(final UUID id) {
         this.id = id;
     }
 
@@ -20,7 +20,7 @@ public class Transaction {
         return id;
     }
 
-    public void addTransactionListener(TransactionListener transactionListener) {
+    public void addTransactionListener(final TransactionListener transactionListener) {
         transactionListeners.add(new WeakReference<>(transactionListener));
     }
 
@@ -29,7 +29,7 @@ public class Transaction {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

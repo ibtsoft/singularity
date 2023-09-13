@@ -9,7 +9,8 @@ public class MessageReply extends Message {
     private final ActionResultStatusEnum status;
     private final String message;
 
-    public MessageReply(Message.Meta meta, String module, String type, ActionResultStatusEnum status, String message, Object payload) {
+    public MessageReply(final Message.Meta meta, final String module, final String type, final ActionResultStatusEnum status, final String message,
+        final Object payload) {
         super(UUID.randomUUID().toString(), module, type + "_RESULT", payload);
         if (meta != null) {
             this.setMeta(new Meta(UUID.randomUUID().toString(), meta.getReferenceId()));
@@ -18,7 +19,7 @@ public class MessageReply extends Message {
         this.message = message;
     }
 
-    public MessageReply(Message.Meta meta, String module, String type, ActionResultStatusEnum status, String message) {
+    public MessageReply(final Message.Meta meta, final String module, final String type, final ActionResultStatusEnum status, final String message) {
         this(meta, module, type, status, message, null);
     }
 
@@ -43,7 +44,7 @@ public class MessageReply extends Message {
 
         private final String replyToReferenceId;
 
-        public Meta(String id, String replyToMessageId) {
+        public Meta(final String id, final String replyToMessageId) {
             super(id);
             this.replyToReferenceId = replyToMessageId;
         }

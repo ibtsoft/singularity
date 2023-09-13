@@ -25,10 +25,11 @@ tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_11
-java.targetCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 checkstyle {
+    toolVersion = "10.11.0"
     maxWarnings = 0
 }
 

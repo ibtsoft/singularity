@@ -9,8 +9,8 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 public class RepositoryManagerFactory {
 
-    public IRepositoryManager makeRepositoryManager(List<SingularityConfiguration.EntityTypeConfiguration> entityTypes,
-        TransactionManager transactionManager) {
+    public IRepositoryManager makeRepositoryManager(final List<SingularityConfiguration.EntityTypeConfiguration> entityTypes,
+        final TransactionManager transactionManager) {
         return new RepositoriesManager(entityTypes, transactionManager);
     }
 }

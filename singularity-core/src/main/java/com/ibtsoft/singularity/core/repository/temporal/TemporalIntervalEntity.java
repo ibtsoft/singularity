@@ -11,7 +11,7 @@ public class TemporalIntervalEntity<T extends Temporal & Comparable<T>> extends 
         return start;
     }
 
-    public void setStart(T start) {
+    public void setStart(final T start) {
         this.start = start;
     }
 
@@ -19,7 +19,7 @@ public class TemporalIntervalEntity<T extends Temporal & Comparable<T>> extends 
         return end;
     }
 
-    public void setEnd(T end) {
+    public void setEnd(final T end) {
         this.end = end;
     }
 }

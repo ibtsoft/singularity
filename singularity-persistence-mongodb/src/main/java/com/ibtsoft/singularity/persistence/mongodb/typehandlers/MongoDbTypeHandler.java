@@ -9,7 +9,7 @@ public abstract class MongoDbTypeHandler {
     private final Set<String> supportedClasses;
     private final MongoDbTypeHandlers typeHandlers;
 
-    public MongoDbTypeHandler(MongoDbTypeHandlers typeHandlers) {
+    public MongoDbTypeHandler(final MongoDbTypeHandlers typeHandlers) {
         this.typeHandlers = typeHandlers;
         this.supportedClasses = defineSupportedClasses();
     }
@@ -24,7 +24,7 @@ public abstract class MongoDbTypeHandler {
 
     public abstract Object toObject(BasicDBObject value);
 
-    public BasicDBObject handleOtherType(Object value) {
+    public BasicDBObject handleOtherType(final Object value) {
         return typeHandlers.getHandler(value.getClass()).toBasicDBObject(value);
     }
 }

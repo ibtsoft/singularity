@@ -25,12 +25,12 @@ public class RepositoriesManager implements IRepositoryManager {
 
     private final EntityStructureCache entityStructureCache;
 
-    public RepositoriesManager(List<SingularityConfiguration.EntityTypeConfiguration> entityTypes, TransactionManager transactionManager) {
+    public RepositoriesManager(final List<SingularityConfiguration.EntityTypeConfiguration> entityTypes, final TransactionManager transactionManager) {
         this(entityTypes, transactionManager, null);
     }
 
-    public RepositoriesManager(List<SingularityConfiguration.EntityTypeConfiguration> entityTypes, TransactionManager transactionManager,
-        Function<EntityStructureCache, PersistenceUnit> persistenceUnit) {
+    public RepositoriesManager(final List<SingularityConfiguration.EntityTypeConfiguration> entityTypes, final TransactionManager transactionManager,
+        final Function<EntityStructureCache, PersistenceUnit> persistenceUnit) {
         assert entityTypes != null;
         assert transactionManager != null;
 
@@ -53,7 +53,7 @@ public class RepositoriesManager implements IRepositoryManager {
         });
     }
 
-    public Repository<?> getRepository(String repository) {
+    public Repository<?> getRepository(final String repository) {
         if (!repositories.containsKey(repository)) {
             throw new RuntimeException(format("Cannot get repository by name %s", repository));
         }
@@ -61,20 +61,20 @@ public class RepositoriesManager implements IRepositoryManager {
     }
 
     @Override
-    public <T> Repository<T> getRepository(RepositoryDescriptor repositoryDescriptor) {
+    public <T> Repository<T> getRepository(final RepositoryDescriptor repositoryDescriptor) {
         return (Repository<T>) repositories.get(repositoryDescriptor.getRepositoryName());
     }
 
     @Override
-    public <T, R extends Repository<T>> R getRepository(Class<R> repositoryClass, Class<T> entityClass) {
+    public <T, R extends Repository<T>> R getRepository(final Class<R> repositoryClass, final Class<T> entityClass) {
         return (R) repositories.get(entityClass.getSimpleName());
     }
 
-    private void addRepository(Repository<?> repository) {
+    private void addRepository(final Repository<?> repository) {
         repositories.put(repository.getRepositoryClass().getSimpleName(), repository);
     }
 
-    public <T> Repository<T> createRepository(Class<T> modelClass) {
+    public <T> Repository<T> createRepository(final Class<T> modelClass) {
         Repository<T> repository;
         if (persistenceUnit != null) {
             repository = new Repository<T>(modelClass, entityStructureCache, transactionManager, persistenceUnit.getPersistence(modelClass));
@@ -86,7 +86,7 @@ public class RepositoriesManager implements IRepositoryManager {
         return repository;
     }
 
-    private <T> Repository<T> createRepository(Class<T> repositoryClass, Class<T> modelClass) {
+    private <T> Repository<T> createRepository(final Class<T> repositoryClass, final Class<T> modelClass) {
         Repository<T> repository;
         try {
             if (persistenceUnit != null) {
@@ -108,7 +108,7 @@ public class RepositoriesManager implements IRepositoryManager {
         return repository;
     }
 
-    public Id getId(Object object) {
+    public Id getId(final Object object) {
         if (entityTypes.stream().anyMatch(entityType -> object.getClass().equals(entityType.getEntityType()))) {
             return Id.generate();
         } else {

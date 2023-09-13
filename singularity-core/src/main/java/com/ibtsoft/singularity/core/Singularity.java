@@ -21,7 +21,7 @@ public class Singularity {
 
     private final IRepositoryManager repositoriesManager;
 
-    public Singularity(SingularityConfiguration singularityConfiguration) {
+    public Singularity(final SingularityConfiguration singularityConfiguration) {
         if (singularityConfiguration.getTransactionManager() != null) {
             this.transactionManager = singularityConfiguration.getTransactionManager();
         } else {
@@ -36,7 +36,7 @@ public class Singularity {
         }
     }
 
-    public void addModelPackage(String classPath) {
+    public void addModelPackage(final String classPath) {
         try {
             ClassLoader cl = this.getClass().getClassLoader();
             LOGGER.debug("Class loader {}", cl);

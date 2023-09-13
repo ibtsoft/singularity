@@ -5,7 +5,7 @@ public class LoginMessage {
     private final String username;
     private final String password;
 
-    public LoginMessage(String username, String password) {
+    public LoginMessage(final String username, final String password) {
         this.username = username;
         this.password = password;
     }

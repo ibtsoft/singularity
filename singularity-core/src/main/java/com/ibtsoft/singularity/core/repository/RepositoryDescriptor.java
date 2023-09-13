@@ -4,15 +4,15 @@ public class RepositoryDescriptor {
 
     private final String repositoryName;
 
-    public static RepositoryDescriptor forClass(Class<?> repositoryEntityClass) {
+    public static RepositoryDescriptor forClass(final Class<?> repositoryEntityClass) {
         return new RepositoryDescriptor(repositoryEntityClass.getSimpleName());
     }
 
-    public static RepositoryDescriptor forName(String repositoryName) {
+    public static RepositoryDescriptor forName(final String repositoryName) {
         return new RepositoryDescriptor(repositoryName);
     }
 
-    protected RepositoryDescriptor(String repositoryName) {
+    protected RepositoryDescriptor(final String repositoryName) {
         this.repositoryName = repositoryName;
     }
 

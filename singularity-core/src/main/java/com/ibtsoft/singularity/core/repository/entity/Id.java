@@ -15,12 +15,12 @@ public class Id {
         this.uuid = UUID.randomUUID();
     }
 
-    protected Id(UUID uuid) {
+    protected Id(final UUID uuid) {
         this.uuid = uuid;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -40,12 +40,12 @@ public class Id {
         return uuid;
     }
 
-    public static Id forString(String id) {
+    public static Id forString(final String id) {
         return new Id(UUID.fromString(id));
     }
 
     @Deprecated
-    public static Id forUUID(UUID id) {
+    public static Id forUUID(final UUID id) {
         return new Id(id);
     }
 }

@@ -25,7 +25,7 @@ public final class EngineIoEndpoint extends Endpoint {
     private EngineIoServer mEngineIoServer; // The engine.io server instance
 
     @Override
-    public void onOpen(Session session, EndpointConfig endpointConfig) {
+    public void onOpen(final Session session, final EndpointConfig endpointConfig) {
         mSession = session;
         mQuery = ParseQS.decode(session.getQueryString());
 
@@ -37,13 +37,13 @@ public final class EngineIoEndpoint extends Endpoint {
          */
         mSession.addMessageHandler(new MessageHandler.Whole<String>() {
             @Override
-            public void onMessage(String message) {
+            public void onMessage(final String message) {
                 mEngineIoWebSocket.emit("message", message);
             }
         });
         mSession.addMessageHandler(new MessageHandler.Whole<byte[]>() {
             @Override
-            public void onMessage(byte[] message) {
+            public void onMessage(final byte[] message) {
                 mEngineIoWebSocket.emit("message", (Object) message);
             }
         });
@@ -52,7 +52,7 @@ public final class EngineIoEndpoint extends Endpoint {
     }
 
     @Override
-    public void onClose(Session session, CloseReason closeReason) {
+    public void onClose(final Session session, final CloseReason closeReason) {
         super.onClose(session, closeReason);
 
         mEngineIoWebSocket.emit("close");
@@ -60,7 +60,7 @@ public final class EngineIoEndpoint extends Endpoint {
     }
 
     @Override
-    public void onError(Session session, Throwable thr) {
+    public void onError(final Session session, final Throwable thr) {
         super.onError(session, thr);
 
         mEngineIoWebSocket.emit("error", "unknown error", thr.getMessage());
@@ -85,12 +85,12 @@ public final class EngineIoEndpoint extends Endpoint {
         }
 
         @Override
-        public void write(String message) throws IOException {
+        public void write(final String message) throws IOException {
             mBasic.sendText(message);
         }
 
         @Override
-        public void write(byte[] message) throws IOException {
+        public void write(final byte[] message) throws IOException {
             mBasic.sendBinary(ByteBuffer.wrap(message));
         }
 

@@ -10,7 +10,7 @@ public class FieldChange {
     private final Field field;
     private final Object value;
 
-    public FieldChange(Entity<?> entity, Field field, Object value) {
+    public FieldChange(final Entity<?> entity, final Field field, final Object value) {
         this.entity = entity;
         this.field = field;
         this.value = value;

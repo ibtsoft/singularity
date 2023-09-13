@@ -26,7 +26,7 @@ public class AuthenticationModule extends Module {
 
     private final SecurityManager securityManager;
 
-    public AuthenticationModule(MessageSender sender, SecurityManager securityManager) {
+    public AuthenticationModule(final MessageSender sender, final SecurityManager securityManager) {
         super(sender);
         this.securityManager = securityManager;
     }
@@ -37,7 +37,7 @@ public class AuthenticationModule extends Module {
     }
 
     @Override
-    public void processMessage(Message message) {
+    public void processMessage(final Message message) {
 
         switch (message.getType()) {
             case "LOGIN":
@@ -69,15 +69,15 @@ public class AuthenticationModule extends Module {
         }
     }
 
-    public void fireOnAuthenticationSuccess(String username, UserId userId) {
+    public void fireOnAuthenticationSuccess(final String username, final UserId userId) {
         authenticationResultListeners.forEach(authenticationResultListener -> authenticationResultListener.onAuthenticationSuccess(username, userId));
     }
 
-    public void addAuthenticationResultListener(AuthenticationResultListener authenticationResultListener) {
+    public void addAuthenticationResultListener(final AuthenticationResultListener authenticationResultListener) {
         authenticationResultListeners.add(authenticationResultListener);
     }
 
-    public void removeAuthenticationResultListener(AuthenticationResultListener authenticationResultListener) {
+    public void removeAuthenticationResultListener(final AuthenticationResultListener authenticationResultListener) {
         authenticationResultListeners.remove(authenticationResultListener);
     }
 }

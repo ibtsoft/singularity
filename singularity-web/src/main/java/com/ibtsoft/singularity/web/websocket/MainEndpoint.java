@@ -33,19 +33,19 @@ public class MainEndpoint extends com.ibtsoft.singularity.web.Session {
 
     private static HashMap<String, String> users = new HashMap<>();
 
-    public MainEndpoint(SecurityManager securityManager, ActionsRepository actionsRepository) {
+    public MainEndpoint(final SecurityManager securityManager, final ActionsRepository actionsRepository) {
         super(securityManager, actionsRepository);
     }
 
     @OnOpen
-    public void onOpen(Session session) throws IOException {
+    public void onOpen(final Session session) throws IOException {
         this.session = session;
         users.put(session.getId(), "");
         LOGGER.info("Session is opened, session={}", session);
     }
 
     @OnMessage
-    public void onMessage(Session session, Message message) throws IOException, EncodeException {
+    public void onMessage(final Session session, final Message message) throws IOException, EncodeException {
         Module module = modules.get(message.getModule());
         if (module != null) {
             module.processMessage(message);
@@ -55,17 +55,17 @@ public class MainEndpoint extends com.ibtsoft.singularity.web.Session {
     }
 
     @OnClose
-    public void onClose(Session session) throws IOException {
+    public void onClose(final Session session) throws IOException {
         LOGGER.info("Session is closed, session={}", session);
     }
 
     @OnError
-    public void onError(Session session, Throwable throwable) {
+    public void onError(final Session session, final Throwable throwable) {
         LOGGER.error("Session error", throwable);
     }
 
     @Override
-    public void sendMessage(Message message) {
+    public void sendMessage(final Message message) {
         try {
             session.getBasicRemote().sendObject(gson.toJson(message));
         } catch (IOException | EncodeException e) {

@@ -7,12 +7,12 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 public class TemporalRepository<T extends TemporalEntity> extends Repository<T> {
 
-    public TemporalRepository(Class<T> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager) {
+    public TemporalRepository(final Class<T> repositoryClass, final EntityStructureCache entityStructureCache, final TransactionManager transactionManager) {
         super(repositoryClass, entityStructureCache, transactionManager);
     }
 
-    public TemporalRepository(Class<T> repositoryClass, EntityStructureCache entityStructureCache, TransactionManager transactionManager,
-        Persistence<T> persistence) {
+    public TemporalRepository(final Class<T> repositoryClass, final EntityStructureCache entityStructureCache, final TransactionManager transactionManager,
+        final Persistence<T> persistence) {
         super(repositoryClass, entityStructureCache, transactionManager, persistence);
     }
 }

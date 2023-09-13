@@ -6,7 +6,7 @@ public class UserAwareActionExecutionContext extends ActionExecutionContext {
 
     private final UserId userId;
 
-    public UserAwareActionExecutionContext(UserId userId) {
+    public UserAwareActionExecutionContext(final UserId userId) {
         this.userId = userId;
     }
 

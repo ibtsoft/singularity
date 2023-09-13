@@ -7,7 +7,10 @@ import com.ibtsoft.singularity.core.repository.transaction.TransactionManager;
 
 public class UserRepository extends Repository<User> {
 
-    public UserRepository( EntityStructureCache entityStructureCache, TransactionManager transactionManager, Persistence<User> persistence) {
-        super(User.class, entityStructureCache, transactionManager, persistence);
-    }
+  public UserRepository(
+      final EntityStructureCache entityStructureCache,
+      final TransactionManager transactionManager,
+      final Persistence<User> persistence) {
+    super(User.class, entityStructureCache, transactionManager, persistence);
+  }
 }

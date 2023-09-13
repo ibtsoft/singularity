@@ -7,7 +7,7 @@ public abstract class Entity<T> {
     private final UUID id;
     private final String entityClass;
 
-    public Entity(UUID id, String entityClass) {
+    public Entity(final UUID id, final String entityClass) {
         this.id = id;
         this.entityClass = entityClass;
     }

@@ -10,14 +10,14 @@ public class EntityStructureCache {
 
     private final Map<String, EntityStructure> cache = new HashMap<>();
 
-    public EntityStructureCache(List<SingularityConfiguration.EntityTypeConfiguration> entityTypes) {
+    public EntityStructureCache(final List<SingularityConfiguration.EntityTypeConfiguration> entityTypes) {
         entityTypes.forEach(entityTypeConfiguration ->
             cache.put(
                 entityTypeConfiguration.getEntityType().getSimpleName(),
                 new EntityStructure(entityTypeConfiguration.getEntityType())));
     }
 
-    public EntityStructure getEntityStructure(Class<?> entityClass) {
+    public EntityStructure getEntityStructure(final Class<?> entityClass) {
         return cache.get(entityClass.getSimpleName());
     }
 }

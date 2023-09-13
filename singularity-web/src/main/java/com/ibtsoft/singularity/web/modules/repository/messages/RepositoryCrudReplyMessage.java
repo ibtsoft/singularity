@@ -6,7 +6,7 @@ import com.ibtsoft.singularity.web.messages.Message;
 
 public class RepositoryCrudReplyMessage extends Message {
 
-    public RepositoryCrudReplyMessage(String id, String type, HashMap<String, Object> data) {
+    public RepositoryCrudReplyMessage(final String id, final String type, final HashMap<String, Object> data) {
         super(id, "REPOSITORY", type, data);
     }
 

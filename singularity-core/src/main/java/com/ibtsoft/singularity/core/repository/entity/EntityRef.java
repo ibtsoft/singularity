@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class EntityRef<T> extends Entity<T> {
 
-    public EntityRef(UUID id, String entityClassName) {
+    public EntityRef(final UUID id, final String entityClassName) {
         super(id, entityClassName);
     }
 }

@@ -17,13 +17,13 @@ public class UpdateMethodHandler implements MethodHandler {
     private final UUID id;
     private final Repository<?> repository;
 
-    public UpdateMethodHandler(Repository<?> repository, UUID id) {
+    public UpdateMethodHandler(final Repository<?> repository, final UUID id) {
         this.repository = repository;
         this.id = id;
     }
 
     @Override
-    public Object invoke(Object self, Method m, Method proceed, Object[] args) throws Throwable {
+    public Object invoke(final Object self, final Method m, final Method proceed, final Object[] args) throws Throwable {
         LOGGER.debug("Class: {}, Id: {}, Method name: {}, Arguments: {}", self.getClass().getSimpleName(), id, m.getName(), args);
         return proceed.invoke(self, args);  // execute the original method.
     }

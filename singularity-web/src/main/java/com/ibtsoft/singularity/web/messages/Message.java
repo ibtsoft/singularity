@@ -12,13 +12,13 @@ public class Message {
     public Message() {
     }
 
-    public Message(String id, String module, String type) {
+    public Message(final String id, final String module, final String type) {
         this.meta = new Meta(id);
         this.module = module;
         this.type = type;
     }
 
-    public Message(String id, String module, String type, Object payload) {
+    public Message(final String id, final String module, final String type, final Object payload) {
         this(id, module, type);
         this.payload = payload;
     }
@@ -27,7 +27,7 @@ public class Message {
         return module;
     }
 
-    public void setModule(String module) {
+    public void setModule(final String module) {
         this.module = module;
     }
 
@@ -35,7 +35,7 @@ public class Message {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -43,7 +43,7 @@ public class Message {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(final Meta meta) {
         this.meta = meta;
     }
 
@@ -51,7 +51,7 @@ public class Message {
         return payload;
     }
 
-    public void setPayload(Object payload) {
+    public void setPayload(final Object payload) {
         this.payload = payload;
     }
 
@@ -70,7 +70,7 @@ public class Message {
 
         private String referenceId;
 
-        public Meta(String id) {
+        public Meta(final String id) {
             this.referenceId = id;
         }
 
@@ -78,7 +78,7 @@ public class Message {
             return referenceId;
         }
 
-        public void setReferenceId(String referenceId) {
+        public void setReferenceId(final String referenceId) {
             this.referenceId = referenceId;
         }
 

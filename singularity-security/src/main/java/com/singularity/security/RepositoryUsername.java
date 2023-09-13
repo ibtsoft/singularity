@@ -7,7 +7,7 @@ public class RepositoryUsername {
     private final String repository;
     private final UserId username;
 
-    public RepositoryUsername(String repository, UserId username) {
+    public RepositoryUsername(final String repository, final UserId username) {
         this.repository = repository;
         this.username = username;
     }
@@ -21,7 +21,7 @@ public class RepositoryUsername {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

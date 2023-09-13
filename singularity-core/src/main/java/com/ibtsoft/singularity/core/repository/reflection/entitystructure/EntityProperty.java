@@ -6,7 +6,7 @@ public abstract class EntityProperty {
 
     private final Field field;
 
-    protected EntityProperty(Field field) {
+    protected EntityProperty(final Field field) {
         this.field = field;
     }
 

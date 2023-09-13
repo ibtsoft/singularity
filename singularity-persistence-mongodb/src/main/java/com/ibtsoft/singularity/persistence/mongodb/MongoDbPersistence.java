@@ -31,15 +31,17 @@ public class MongoDbPersistence<T> implements Persistence<T> {
     private final EntityStructure entityStructure;
     private final MongoDbTypeHandlers typeHandlers;
 
-    public MongoDbPersistence(DBCollection collection, Class<T> entityClass, EntityStructure entityStructure, MongoDbTypeHandlers typeHandlers) {
+    public MongoDbPersistence(final DBCollection collection, final Class<T> entityClass, final EntityStructure entityStructure,
+        final MongoDbTypeHandlers typeHandlers) {
         this.collection = collection;
         this.entityClass = entityClass;
         this.entityStructure = entityStructure;
         this.typeHandlers = typeHandlers;
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    public void save(EntityValue<T> value) {
+    public void save(final EntityValue<T> value) {
         ObjectId objectId = new ObjectId(value.getId().toString().substring(9).replace("-", ""));
 
         LOGGER.info("Saving entity type {} with id {} (ObjectId {})", value.getEntityClass(), value.getId(), objectId);
@@ -102,6 +104,6 @@ public class MongoDbPersistence<T> implements Persistence<T> {
     }
 
     @Override
-    public void remove(UUID value) {
+    public void remove(final UUID value) {
     }
 }

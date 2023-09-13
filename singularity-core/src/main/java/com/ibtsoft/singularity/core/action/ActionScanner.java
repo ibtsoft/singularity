@@ -20,7 +20,7 @@ public class ActionScanner {
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    private Iterable<Class> getClasses(String packageName) throws ClassNotFoundException, IOException, URISyntaxException {
+    private Iterable<Class> getClasses(final String packageName) throws ClassNotFoundException, IOException, URISyntaxException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
@@ -47,7 +47,8 @@ public class ActionScanner {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    private List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
+    @SuppressWarnings("checkstyle:MagicNumber")
+    private List<Class> findClasses(final File directory, final String packageName) throws ClassNotFoundException {
         List<Class> classes = new ArrayList<>();
         if (!directory.exists()) {
             return classes;
